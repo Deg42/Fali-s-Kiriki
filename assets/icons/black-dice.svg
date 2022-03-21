@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="180"
+   height="180"
+   viewBox="0 0 47.625 47.625"
+   version="1.1"
+   id="svg50498"
+   inkscape:version="1.1.2 (b8e25be833, 2022-02-05)"
+   sodipodi:docname="black-dice.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview50500"
+     pagecolor="#505050"
+     bordercolor="#eeeeee"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="false"
+     units="px"
+     showborder="true"
+     inkscape:zoom="2"
+     inkscape:cx="-63.25"
+     inkscape:cy="115"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs50495" />
+  <g
+     inkscape:label="Capa 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       id="path38020"
+       style="fill:#f2e5b8;fill-opacity:1;stroke-width:0.264583"
+       d="M 7.9374953,0 A 7.937499,7.9374997 0 0 0 0,7.9374975 V 23.812496 39.687491 A 7.937499,7.9374997 0 0 0 7.9374953,47.625 H 23.812486 39.687495 A 7.937499,7.9374997 0 0 0 47.625,39.687495 V 23.812496 7.9374975 A 7.937499,7.9374997 0 0 0 39.687495,0 H 23.812486 Z" />
+    <path
+       id="path37645"
+       style="fill:#ecd996;fill-opacity:1;stroke-width:0.264583"
+       d="M 45.311524,45.300011 2.3364628,2.3249662 A 7.937499,7.9374994 0 0 0 0.011502,7.9376438 V 23.812489 39.68733 a 7.937499,7.9374994 0 0 0 7.9371802,7.937659 H 23.824006 39.698843 a 7.937499,7.9374994 0 0 0 5.612681,-2.324978 z" />
+    <circle
+       style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       id="use42541"
+       cx="11.524468"
+       cy="-11.524476"
+       transform="rotate(90)"
+       inkscape:tile-x0="-240.38514"
+       inkscape:tile-y0="-73.597291"
+       r="4.0960088" />
+    <circle
+       style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       id="use42545"
+       cx="11.524468"
+       cy="-36.100533"
+       transform="rotate(90)"
+       inkscape:tile-x0="-229.11406"
+       inkscape:tile-y0="-125.27372"
+       inkscape:tile-cx="-225.51299"
+       inkscape:tile-cy="-121.67266"
+       inkscape:tile-w="7.2021235"
+       inkscape:tile-h="7.2021235"
+       r="4.0960088" />
+    <use
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#use42545"
+       xlink:href="#use42545"
+       transform="translate(0,12.288022)"
+       id="use42797"
+       width="100%"
+       height="100%"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.879163" />
+    <use
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#use42545"
+       xlink:href="#use42545"
+       transform="translate(0,24.576056)"
+       id="use42799"
+       width="100%"
+       height="100%"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.879163" />
+    <use
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#use42545"
+       xlink:href="#use42545"
+       transform="translate(-24.576055,12.288022)"
+       id="use42825"
+       width="100%"
+       height="100%"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.879163" />
+    <circle
+       style="fill:#000000;fill-opacity:1;stroke-width:0.264583"
+       id="circle42829"
+       cx="23.812498"
+       cy="-23.81249"
+       transform="rotate(90)"
+       inkscape:tile-x0="-240.38514"
+       inkscape:tile-y0="-73.597291"
+       r="4.0960088" />
+    <use
+       x="0"
+       y="0"
+       inkscape:tiled-clone-of="#use42545"
+       xlink:href="#use42545"
+       transform="translate(-24.576055,24.576056)"
+       id="use43409"
+       width="100%"
+       height="100%"
+       style="fill:#000000;fill-opacity:1;stroke-width:0.879163" />
+  </g>
+</svg>
