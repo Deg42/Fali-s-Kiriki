@@ -8,19 +8,21 @@ function login()
     $consulta->execute(["username" => $_POST['username']]);
     $usuario = $consulta->fetch();
 
-    if (!empty($usuario) and password_verify($_POST['password1'], $usuario['password'])) {
+    if (!empty($usuario) and password_verify($_POST['password'], $usuario['password'])) {
         $_SESSION['username'] = $usuario['username'];
         $_SESSION['email'] = $usuario['email'];
         $_SESSION['reg_date'] = $usuario['reg_date'];
         $_SESSION['games_won'] = $usuario['games_won'];
-        return true;
+       
+        header("Location:index.php");
+        exit;
     } else {
         return $error = 'Usuario o clave incorrectos';
     }
 }
 
 
-function signup()
+function register()
 {
     require_once('bd.php');
     $sql = "INSERT INTO players (username, email, password, reg_date, games_won) VALUES (:username, :email, :password, :reg_date, :games_won)";
@@ -38,7 +40,6 @@ function signup()
 
     if ($consulta) {
         header("Location:index.php");
-    } else {
-        return $error = 'Usuario o clave incorrectos';
+        exit;
     }
 }

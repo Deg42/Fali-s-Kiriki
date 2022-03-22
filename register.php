@@ -21,9 +21,12 @@ require_once('crud.php');
 </head>
 
 <body>
+<?php
+require_once('templates/header.php');
+?>
     <main>
         <div class="container">
-            <h1>Sign up</h1>
+            <h1>Registro</h1>
             <form role="form" id="register-form" method="POST">
 
                 <div class="mb-3">
@@ -36,19 +39,17 @@ require_once('crud.php');
                 </div>
                 <div class="mb-3 row">
                     <div class="col-sm-6">
-                        <label>Contraseña <span class="text-danger">*</span></label>
+                        <label class="form-label">Contraseña <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" id="password1" name="password1">
                     </div>
                     <div class="col-sm-6">
-                        <label>Repetir Contraseña <span class="text-danger">*</span></label>
+                        <label class="form-label">Repetir Contraseña <span class="text-danger">*</span></label>
                         <input type="password" class="form-control" id="password2" name="password2">
-
                     </div>
                 </div>
 
-
                 <div class="col-lg-4 offset-lg-9 text-right mt-3">
-                    <button type="submit" class="btn btn-primary" name="Signup">Registrarse</button>
+                    <button type="submit" class="btn btn-primary" name="Register">Registrarse</button>
                 </div>
 
             </form>
@@ -56,8 +57,8 @@ require_once('crud.php');
     </main>
 
     <?php
-    if (isset($_POST["Signup"])) {
-        signup();
+    if (isset($_POST["Register"])) {
+        register();
     }
     ?>
 
