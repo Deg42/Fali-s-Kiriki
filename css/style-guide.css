@@ -185,7 +185,6 @@ xButtons
   border: none;
   box-shadow: none;
   border-radius: 0.25em;
-  font-size: 1.4rem;
   font-family: "Inter", "Open Sans", sans-serif;
   color: #ffffff;
   padding: 0.6em 2.2em;
@@ -226,12 +225,6 @@ xButtons
   color: #ffffff;
   background: #5f8ee4;
 }
-@media only screen and (min-width: 768px) {
-  .btn {
-    font-size: 1.6rem;
-  }
-}
-
 .cd-buttons .cd-box:nth-of-type(2) span {
   /* CSS class name color */
   color: #5f8ee4;
@@ -252,21 +245,10 @@ xIcons
 
 xForm 
 
--------------------------------- */
-input[type="text"],
-select {
-  border: 1px solid #e6e6e6;
-  border-radius: 0.25em;
-  background: #ffffff;
-}
+------------------------------ */
 input[type="text"]:focus,
 select:focus {
   outline: none;
-}
-
-input[type="text"] {
-  padding: 0.6em 1em;
-  box-shadow: inset 1px 1px rgba(0, 0, 0, 0.03);
 }
 input[type="text"].success {
   border-color: #6fce72;
@@ -397,13 +379,8 @@ html * {
   -moz-osx-font-smoothing: grayscale;
 }
 
-html {
-  font-size: 62.5%;
-}
-
 body {
-  font-size: 1.6rem;
-  font-family: "Merriweather", serif;
+  font-family: "Inter", "Open Sans", sans-serif;;
 }
 
 a {
@@ -414,11 +391,10 @@ img {
   max-width: 100%;
 }
 
-input,
+label, 
 textarea,
 select {
-  font-family: "Merriweather", serif;
-  font-size: 1.6rem;
+  font-family: "Inter", "Open Sans", sans-serif;
 }
 
 header {
@@ -970,7 +946,7 @@ section:nth-of-type(6) h2::before {
 
 /* ------------------------------- */
 
-.dice{
+.dice {
   width: 64px;
   height: 64px;
   background-size: 64px 64px;

@@ -1,3 +1,8 @@
+<?php
+session_start();
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -31,7 +36,7 @@
         <div class="card" id="game">
           <button
             class="btn btn-danger"
-            type="button"
+            id="roll"
             name="tirar"
             onclick="rollDices();"
           >
@@ -42,7 +47,7 @@
 
           <hr />
 
-          <div class="row" id="bid">
+          <div class="row d-none" id="bid">
             <div class="col">
               <button
                 class="btn btn-primary"
@@ -111,6 +116,8 @@
 
     <script>
       function rollDices() {
+        $("#roll").remove();
+
         $.ajax({
           url: "rollDices.php",
           type: "get",
@@ -121,6 +128,9 @@
             $("#dices").html(response);
           },
         });
+
+        $("#bid").removeClass("d-none");
+        $("#bid").addClass("d-flex");
       }
 
       function moreValue(bid, bidImage) {
