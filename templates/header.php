@@ -21,8 +21,9 @@ $activePage = basename($_SERVER['PHP_SELF'], ".php");
 					<!-- -->
 					<?php
 					if (isset($_SESSION['username'])) {
-						echo '<li class="nav-item "><a class="btn btn-outline-success" href="logout.php"> Cerrar Sesión</a></li>';
+						echo '<li class="nav-item"><a class="nav-link" href="selectGame.php"> Jugar!</a></li>';
 						echo '<a class="navbar-brand ms-2">' . $_SESSION['username'] . '</a>';
+						echo '<li class="nav-item "><a class="btn btn-outline-success" href="logout.php"> Cerrar Sesión</a></li>';
 					} else {
 						echo '<li class="nav-item "><a class="btn btn-outline-success" href="login.php"> Iniciar Sesión / Registrarse</a></li>';
 					}

@@ -20,11 +20,13 @@ require_once('crud.php');
     <title>Kiriki Web App</title>
 </head>
 
-<?php
-require_once('templates/header.php');
-?>
-
 <body>
+    <?php
+    require_once('templates/header.php');
+    if (isset($_SESSION['username'])) {
+        header('game.php');
+    }
+    ?>
     <main>
         <div class="container">
             <h1>Iniciar sesión</h1>

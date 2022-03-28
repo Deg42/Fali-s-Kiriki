@@ -21,9 +21,12 @@ require_once('crud.php');
 </head>
 
 <body>
-<?php
-require_once('templates/header.php');
-?>
+    <?php
+    require_once('templates/header.php');
+    if (isset($_SESSION['username'])) {
+        header('game.php');
+    }
+    ?>
     <main>
         <div class="container">
             <h1>Registro</h1>
@@ -35,7 +38,7 @@ require_once('templates/header.php');
                 </div>
                 <div class="mb-3">
                     <label for="email" class="form-label">Email <span class="text-danger">*</span></label>
-                    <input type="email" class="form-control" id="email" id="email" name="email">
+                    <input type="email" class="form-control" id="email" name="email">
                 </div>
                 <div class="mb-3 row">
                     <div class="col-sm-6">
