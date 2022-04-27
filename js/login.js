@@ -1,0 +1,19 @@
+$("#login").on("submit", function (event) {
+    event.preventDefault();
+    $.ajax({
+        type: "POST",
+        datatype: "json",
+        url: "https://api-kiriki.herokuapp.com/api/login",
+        data: ({
+            username: $('#username').val(),
+            password: $('#password').val()
+        }),
+        success: function (json) {
+            console.log(json);
+        },
+        error: function (result) {
+            console.log(result);
+        }
+    });
+    return false;
+});
