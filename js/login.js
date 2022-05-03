@@ -3,7 +3,7 @@ $("#login").on("submit", function (event) {
     $.ajax({
         type: "POST",
         datatype: "json",
-        url: "https://api-kiriki.herokuapp.com/api/login",
+        url: "https://api-kiriki.herokuapp.com/api/login_check",
         data: ({
             username: $('#username').val(),
             password: $('#password').val()
