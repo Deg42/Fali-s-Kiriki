@@ -1,16 +1,17 @@
-$("#login").on("click", function (event) {
+$("#register").on("click", function (event) {
     event.preventDefault();
     $.ajax({
         type: "POST",
         datatype: "json",
-        url: "https://api-kiriki.herokuapp.com/api/login_check",
+        url: "https://api-kiriki.herokuapp.com/api/register",
         data: ({
             username: $('#username').val(),
-            password: $('#password').val()
+            email: $('#email').val(),
+            password: $('#rPassword').val()
         }),
         success: function (json) {
             console.log(json);
-            // Save token
+            // Show success message
             // Clear form
             // Redirect
         },

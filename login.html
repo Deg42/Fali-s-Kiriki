@@ -10,7 +10,6 @@
 
     <!-- Bootstrap CSS -->
     <link href="/css/main.min.css" rel="stylesheet" />
-
     <link rel="stylesheet" href="css/style.css" />
 
     <title>Kiriki Web App - Acceso</title>
@@ -93,7 +92,7 @@
                                 <span class="input-group-text d-none d-sm-flex me-lg-3"><i class="fas fa-lock fa-lg"></i></span>
                                 <div class="form-floating flex-grow-1">
                                     <input type="password" id="password" class="form-control"
-                                        placeholder="Contraseña" />
+                                        placeholder="Contraseña" autocomplete="on" />
                                     <button id="toggle-password" type="button" class="d-none"
                                         aria-label="Show password as plain text. Warning: this will display your password on the screen.">
                                     </button>
@@ -120,12 +119,12 @@
                             </div>
 
                             <div class="d-grid gap-2 mt-4">
-                                <button id="login" type="click" class="btn btn-primary btn-lg">Acceder</button>
+                                <button id="login" type="button" class="btn btn-primary btn-lg">Acceder</button>
                             </div>
                         </form>
                         <div class="d-grid gap-2 my-4">
                             <span class="fw-bold my-auto">¿No tienes cuenta?</span>
-                            <a href="#!" class="btn btn-secondary btn-lg">Regístrate</a>
+                            <a href="register.html" class="btn btn-secondary btn-lg">Regístrate</a>
                         </div>
                     </div>
                 </div>

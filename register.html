@@ -49,6 +49,7 @@
                 <h1 class="text-center m-4">Registrarse</h1>
                 <div class="d-flex flex-row justify-content-around">                    
                     <div class="col-md-12 col-lg-6 col-xl-5 mt-3 px-1">
+                        <p>Si ya tienes cuenta, <span class="fw-bold">Inicia sesión</span> a través de este <a href="login.html" class="fw-bold">enlace</a>.</p>
                         <form>
                             <!-- Username input -->
                             <div class="input-group mb-4">
@@ -74,7 +75,7 @@
                                 <span class="input-group-text d-none d-sm-flex me-lg-3"><i class="fas fa-lock fa-lg"></i></span>
                                 <div class="form-floating flex-grow-1">
                                     <input type="password" id="rPassword" class="form-control"
-                                        placeholder="Contraseña" />
+                                        placeholder="Contraseña" autocomplete="on"/>
                                     <label class="form-label" for="rPassword">Contraseña</label>
                                 </div>
                             </div>
@@ -84,7 +85,7 @@
                                 <span class="input-group-text d-none d-sm-flex me-lg-3"><i class="fas fa-key fa-lg"></i></span>
                                 <div class="form-floating flex-grow-1">
                                     <input type="password" id="repeatPassword" class="form-control"
-                                        placeholder="Repetir Contraseña" />
+                                        placeholder="Repetir Contraseña" autocomplete="on" />
                                     <label class="form-label" for="repeatPassword">Repetir Contraseña</label>
                                 </div>
                             </div>
@@ -102,7 +103,7 @@
                             </div>
 
                             <div class="d-grid gap-2 my-4">
-                                <button type="button" class="btn btn-primary btn-lg">Registrarse</button>
+                                <button id="register" type="button" class="btn btn-primary btn-lg">Registrarse</button>
                             </div>
                         </form>
                     </div>
@@ -137,6 +138,7 @@
     <script src="https://kit.fontawesome.com/79f56e797f.js" crossorigin="anonymous"></script>
 
     <!-- My JS -->
+    <script src="js/register.js"></script>
 
 </body>
 
