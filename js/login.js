@@ -1,4 +1,4 @@
-$("#login").on("submit", function (event) {
+$("#login").on("click", function (event) {
     event.preventDefault();
     $.ajax({
         type: "POST",
@@ -10,6 +10,8 @@ $("#login").on("submit", function (event) {
         }),
         success: function (json) {
             console.log(json);
+            // Save token
+            // Redirect
         },
         error: function (result) {
             console.log(result);
