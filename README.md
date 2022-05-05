@@ -11,7 +11,6 @@
 - [ ] Fix navbar
 - [ ] Fix active class
 
-
 ### Login
 See login.js comments
 - [ ] Front Validations
@@ -24,3 +23,9 @@ See register.js comments
 - [ ] Front Validations
 - [ ] Terms and Conditions
 - [ ] Change image
+
+### Games
+- [ ] Get games
+- [ ] Search bar
+- [ ] Modal create game
+- [ ] Join game
