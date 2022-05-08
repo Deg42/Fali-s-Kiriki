@@ -105,7 +105,6 @@ function formHasError() {
     setValids(errors, elementsId);
 
     if (errors.size > 0) {
-        console.log(errors);
         return true;
     }
 }
@@ -146,17 +145,15 @@ $("#register").on("click", function (event) {
             email: $('#email').val(),
             password: $('#rPassword').val()
         }),
-        success: function (json) {
-            console.log(json);
-            // Show success message
+        success: function () {
             $('#successModal').modal('show');
-            // Clear form
+
             usernameVal = "";
             emailVal = "";
             passwordVal = "";
             confirmPasswordVal = "";
             termsVal = false;
-            // Redirect in a few seconds    
+
             setTimeout(function () {
                 window.location.href = "login.html";
             }, 4000);
