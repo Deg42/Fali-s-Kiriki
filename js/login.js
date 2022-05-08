@@ -11,8 +11,12 @@ $("#login").on("click", function (event) {
         success: function (json) {
             console.log(json);
             // Save token
+            localStorage.setItem("token", json.token);
             // Clear form
+            $('#username').val("");
+            $('#password').val("");
             // Redirect
+            window.location.href = "games.html";
         },
         error: function (result) {
             // Show error message
