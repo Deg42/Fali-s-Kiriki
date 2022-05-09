@@ -53,67 +53,18 @@
                 </div>
                 <div class="col-md-5 align-self-center">
                     <div class="input-group">
-                        <span class="input-group-text  d-md-flex me-lg-1"><i class="fas fa-magnifying-glass fa-xl"></i></span>
+                        <span class="input-group-text  d-md-flex me-lg-1"><i
+                                class="fas fa-magnifying-glass fa-xl"></i></span>
                         <div class="form-floating flex-grow-1">
-                            <input type="text" id="search" class="form-control"
-                                placeholder="Buscar partida" autocomplete="on" />
+                            <input type="text" id="search" class="form-control" placeholder="Buscar partida"
+                                autocomplete="on" />
                             <label class="form-label" for="search">Buscar partida </label>
                         </div>
                     </div>
                 </div>
             </div>
             <hr>
-            <div class="row row-cols-1 row-cols-md-3 g-4">
-
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Nombre del juego</h5>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Jugador 1</li>
-                            <li class="list-group-item">Jugador 2</li>
-                            <li class="list-group-item">Jugador 3</li>
-                        </ul>
-                        <div class="card-footer">
-                            <a href="#" class="btn btn-secondary me-5">Unirse</a>
-                            <small class="text-muted">Nombre del host</small>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col">
-                    <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">Card title</h5>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">An item</li>
-                            <li class="list-group-item">A second item</li>
-                            <li class="list-group-item">A third item</li>
-                        </ul>
-                        <div class="card-body">
-                            <a href="#" class="btn btn-primary">Go somewhere</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <div id="gamesAvailable" class="row row-cols-1 row-cols-md-3 g-4"></div>
             <hr>
         </div>
     </main>
@@ -138,6 +89,7 @@
     <script src="https://kit.fontawesome.com/79f56e797f.js" crossorigin="anonymous"></script>
 
     <!-- My JS -->
+    <script src="js/games.js"></script>
 
 </body>
 
