@@ -66,16 +66,20 @@ $("#login").on("click", function (event) {
         return false;
     }
 
+    let username = $('#username').val();
+    let password = $('#password').val();
+
     $.ajax({
         type: "POST",
         datatype: "json",
         url: "https://api-kiriki.herokuapp.com/api/login_check",
         data: ({
-            username: $('#username').val(),
-            password: $('#password').val()
+            username: username,
+            password: password
         }),
         success: function (json) {
             localStorage.setItem("token", json.token);
+            localStorage.setItem("username", username);
 
             $('#username').val("");
             $('#password').val("");

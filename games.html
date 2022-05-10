@@ -47,9 +47,9 @@
             <h1 class="text-center mt-5">Partidas</h1>
             <div class="row mt-5">
                 <div class="col my-3 d-grid d-md-block gap-2 mx-auto">
-                    <a href="#" class="btn btn-primary btn-lg ">
+                    <button class="btn btn-primary btn-lg" id="createGame">
                         <i class="fa fa-chevron-down me-2" width="48px"></i>Crear Partida
-                    </a>
+                    </button>
                 </div>
                 <div class="col-md-5 align-self-center">
                     <div class="input-group">
@@ -68,6 +68,81 @@
             <hr>
         </div>
     </main>
+
+    <div class="modal fade" id="passModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="passModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="passModalTitle"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <input type="password" id="gamePassword" class="form-control" placeholder="Contraseña"
+                                autocomplete="on">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                        <button type="button" class="btn btn-primary" id="aceptPassword">Aceptar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="createGameModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
+        aria-labelledby="createModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Crear Juego</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <form>
+                    <div class="modal-body">
+                        <div class="input-group">
+                            <span class="input-group-text d-none d-sm-flex me-lg-3">
+                                <i class="fas fa-pencil fa-lg"></i></span>
+                            <div class="form-floating flex-grow-1 mb-2">
+                                <input type="text" id="createGameName" class="form-control"
+                                    placeholder="Nombre del juego">
+                                <label class="form-label ms-2" for="createGameName">Nombre del juego</label>
+                                <div id="nameFeedback" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text d-none d-sm-flex me-lg-3">
+                                <i class="fas fa-lock fa-lg"></i></span>
+                            <div class="form-floating flex-grow-1 mb-2">
+                                <input type="password" id="createGamePassword" class="form-control"
+                                    placeholder="Contraseña" autocomplete="on">
+                                <label class="form-label ms-2" for="createGamePassword">Contraseña</label>
+                                <div id="passwordFeedback" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <span class="input-group-text d-none d-sm-flex me-lg-3">
+                                <i class="fas fa-crown fa-lg"></i></span>
+                            <div class="form-floating flex-grow-1 mb-2">
+                                <input type="number" id="createGamePoints" class="form-control" placeholder="Puntos"
+                                    min="3" max="9">
+                                <label class="form-label ms-2" for="createGamePoints">Puntos</label>
+                                <div id="pointsFeedback" class="invalid-feedback"></div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="button" class="btn btn-primary" id="acceptCreateGame">Crear</button>
+                        </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
 
     <!-- Optional JavaScript; choose one of the two! -->
 
