@@ -57,9 +57,10 @@ function formHasError() {
 
 }
 
-$("#login").on("click", function (event) {
+$("#loginButton").on("click", function (event) {
     event.preventDefault();
 
+    console.log("login");
     resetErrors();
 
     if (formHasError()) {
@@ -78,7 +79,7 @@ $("#login").on("click", function (event) {
             password: password
         }),
         success: function (json) {
-            localStorage.setItem("token", json.token);
+            localStorage.setItem("token", JSON.stringify({ value: json.token, timestamp: new Date().getTime()+ 3600000 }));
             localStorage.setItem("username", username);
 
             $('#username').val("");
