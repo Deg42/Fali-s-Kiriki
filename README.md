@@ -5,7 +5,7 @@
 - [ ] Better testing 
 - [ ] Routing URLs ?
 - [ ] Add 404 page
-- [ ] Add logout
+- [X] Add logout
 
 ### Navbar
 - [ ] Fix navbar
@@ -25,7 +25,7 @@ See register.js comments
 - [ ] Change image
 
 ### Games
-- [ ] Get games
-- [ ] Search bar
-- [ ] Modal create game
-- [ ] Join game
+- [X] Get games
+- [X] Search bar
+- [X] Modal create game
+- [X] Join game
