@@ -25,6 +25,41 @@ function loadGames(json) {
         }
     });
 
+    $('#startGame').on('click', function (event) {
+        event.preventDefault();
+        startGame();
+    });
+}
+
+function loadStartedGamesWherePlayerIs(json) {
+    let games = json.results;
+
+    $('#gamesIn').html('');
+
+    games.forEach(game => {
+        $('#gamesIn').append(`
+            <div class="col">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">${game.name}</h5>
+                    </div><ul class="list-group list-group-flush">${getPlayers(game)}</ul>
+                    <div class="card-footer">
+                        ${buttonToContinue(game)}
+                    </div>
+                </div>
+            </div>`);
+
+        if (game.host === localStorage.getItem('username')) {
+            $('#createGame').attr('disabled', true);
+            $('#createGame').html('Ya has creado una partida');
+        }
+    });
+
+};
+
+function buttonToContinue(game) {
+    return `<button class="btn btn-secondary me-5" href="/game/${game.name}" disabled="disabled">Continuar</button>`;
+
 }
 
 function buttonToJoinGame(game) {
@@ -41,28 +76,28 @@ function buttonToJoinGame(game) {
     return '';
 }
 
-function pWaitingToStart(game){
+function pWaitingToStart(game) {
     if (game.players.results.includes(localStorage.getItem('username')) && game.host !== localStorage.getItem('username')) {
         return `<small class="list-group-item text-secondary mb-1">Esperando a que el host inicie la partida</small>`;
     }
     return '';
 }
 
-function smallHostText(game){
+function smallHostText(game) {
     if (game.host === localStorage.getItem('username')) {
-      return   `<small class="text-primary fw-bold fs-5">Creada por ti</small>`
+        return `<small class="text-primary fw-bold fs-5">Creada por ti</small>`
     }
-return `<small class="text-muted">Creado por ${game.host}</small>`
+    return `<small class="text-muted">Creado por ${game.host}</small>`
 }
 
-function buttonToStartIfHost(game){
+function buttonToStartIfHost(game) {
     if (game.players.results.length === 1) {
-        return `<button class="btn btn-secondary me-5 startGame" disabled="disabled">Iniciar partida</button>`;
+        return `<button class="btn btn-secondary me-5" disabled="disabled">Iniciar partida</button>`;
     }
 
-    if (game.host === localStorage.getItem('username') ) {
-        return `<a class="btn btn-primary me-5 startGame">Iniciar</a>`;
-    }   
+    if (game.host === localStorage.getItem('username')) {
+        return `<button class="btn btn-primary me-5" id="startGame">Iniciar</button>`;
+    }
     return '';
 }
 
@@ -81,6 +116,12 @@ function getPlayers(game) {
 
     return result.join('');
 
+}
+
+function serverGameValidator(data) {
+    if (data.error === "There is already a game with that name") {
+        alert("Ya existe una partida con ese nombre");
+    }
 }
 
 function loadError() {
@@ -146,7 +187,7 @@ function joinGame(gameName, password) {
         type: "POST",
         datatype: "json",
         url: "https://api-kiriki.herokuapp.com/api/join_game",
-        headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') },
+        headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         data: ({
             game_name: gameName,
             player_name: localStorage.getItem('username'),
@@ -167,7 +208,7 @@ function createGame(gameName, password, points) {
         type: "POST",
         datatype: "json",
         url: "https://api-kiriki.herokuapp.com/api/create_game",
-        headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') },
+        headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         data: ({
             host_name: localStorage.getItem('username'),
             game_name: gameName,
@@ -182,22 +223,43 @@ function createGame(gameName, password, points) {
             serverGameValidator(result.responseJSON);
         }
     });
-    
+
 }
 
-function serverGameValidator(data) {
-    if (data.error === "There is already a game with that name") {
-        alert("Ya existe una partida con ese nombre");
-    }
-}
+function startGame() {
+    $.ajax({
+        type: "POST",
+        datatype: "json",
+        url: "https://api-kiriki.herokuapp.com/api/start_game",
+        headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
+        data: ({
+            game_name: $('#startGame').parent().parent().find('.card-title').text(),
+            host_name: localStorage.getItem('username')
+        }),
+        success: function (json) {
+            console.log(json);
+        },
+        error: function (result) {
+            console.log(result);
+        }
+    });
+    ajaxGetGames();
+};
+
+
 
 function ajaxGetGames() {
+
+    if (localStorage.getItem('token') === null) {
+        loadError();
+        return false;
+    }
 
     $.ajax({
         type: "GET",
         datatype: "json",
         url: "https://api-kiriki.herokuapp.com/api/playable_games",
-        headers: { "Authorization": 'Bearer ' + localStorage.getItem('token') },
+        headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         success: function (result) {
             loadGames(result);
         },
@@ -209,9 +271,26 @@ function ajaxGetGames() {
     return false;
 }
 
+function ajaxGetStartedGames() {
+    $.ajax({
+        type: "GET",
+        datatype: "json",
+        url: "https://api-kiriki.herokuapp.com/api/started_games/" + localStorage.getItem('username'),
+        headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
+        success: function (result) {
+            loadStartedGamesWherePlayerIs(result);
+        },
+        error: function (result) {
+            console.log(result);
+        }
+    });
+    return false;
+}
+
 jQuery(function () {
 
     ajaxGetGames();
+    ajaxGetStartedGames();
 
 });
 
@@ -240,3 +319,23 @@ $('#search').on('keyup', (event) => {
         }
     });
 });
+
+function startGame() {
+    $.ajax({
+        type: "POST",
+        datatype: "json",
+        url: "https://api-kiriki.herokuapp.com/api/start_game",
+        headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
+        data: ({
+            game_name: $('#startGame').parent().parent().find('.card-title').text(),
+            host_name: localStorage.getItem('username')
+        }),
+        success: function (json) {
+            console.log(json);
+        },
+        error: function (result) {
+            console.log(result);
+        }
+    });
+    ajaxGetGames();
+};
