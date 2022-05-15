@@ -6,9 +6,10 @@ function loadGames(json) {
     games.forEach(game => {
         $('#gamesAvailable').append(`
             <div class="col">
-                <div class="card">
-                    <div class="card-body">
+                <div class="card border-3">
+                    <div class="card-body ">
                         <h5 class="card-title">${game.name}</h5>
+                        <small class="d-none gameId">${game.id}</small>
                     </div><ul class="list-group list-group-flush">${getPlayers(game)}</ul>
                     <div class="card-footer">
                         ${buttonToJoinGame(game)}
@@ -18,17 +19,8 @@ function loadGames(json) {
                     </div>
                 </div>
             </div>`);
-
-        if (game.host === localStorage.getItem('username')) {
-            $('#createGame').attr('disabled', true);
-            $('#createGame').html('Ya has creado una partida');
-        }
     });
 
-    $('#startGame').on('click', function (event) {
-        event.preventDefault();
-        startGame();
-    });
 }
 
 function loadStartedGamesWherePlayerIs(json) {
@@ -39,26 +31,33 @@ function loadStartedGamesWherePlayerIs(json) {
     games.forEach(game => {
         $('#gamesIn').append(`
             <div class="col">
-                <div class="card">
-                    <div class="card-body">
+                <div class="card border-3">
+                    <div class="card-body ">
                         <h5 class="card-title">${game.name}</h5>
+                        <small class="d-none gameId">${game.id}</small>
                     </div><ul class="list-group list-group-flush">${getPlayers(game)}</ul>
                     <div class="card-footer">
                         ${buttonToContinue(game)}
+                        ${smallHostText(game)}
                     </div>
                 </div>
             </div>`);
 
         if (game.host === localStorage.getItem('username')) {
             $('#createGame').attr('disabled', true);
-            $('#createGame').html('Ya has creado una partida');
+            $('#createGame').removeClass('btn-primary').addClass('btn-secondary');
+            $('#createGame').html('<i class="fa fa-xmark m-2" width="48px"></i>Ya has creado una partida');
         }
     });
 
 };
 
 function buttonToContinue(game) {
-    return `<button class="btn btn-secondary me-5" href="/game/${game.name}" disabled="disabled">Continuar</button>`;
+    if (game.turn === localStorage.getItem('username')) {
+        return `<a class="btn btn-primary me-5" id="yourTurn" href="/game.html?id=${game.id}"><img class="turned-30" src="assets/icons/two-dices.svg" width="32px"></img> Tu turno!</a>`;
+    }
+
+    return `<a class="btn btn-secondary me-5" id="continueGame" href="/game.html?id=${game.id}">Continuar</a>`;
 
 }
 
@@ -85,13 +84,13 @@ function pWaitingToStart(game) {
 
 function smallHostText(game) {
     if (game.host === localStorage.getItem('username')) {
-        return `<small class="text-primary fw-bold fs-5">Creada por ti</small>`
+        return `<small class="text-primary fw-bold fs-5 text-nowrap">Creada por ti</small>`
     }
-    return `<small class="text-muted">Creado por ${game.host}</small>`
+    return `<small class="text-muted text-nowrap">Creado por ${game.host}</small>`
 }
 
 function buttonToStartIfHost(game) {
-    if (game.players.results.length === 1) {
+    if (game.players.results.length === 1 && game.host === localStorage.getItem('username')) {
         return `<button class="btn btn-secondary me-5" disabled="disabled">Iniciar partida</button>`;
     }
 
@@ -104,14 +103,17 @@ function buttonToStartIfHost(game) {
 function getPlayers(game) {
     let players = game.players.results;
     let result = [];
+    console.log(game);
 
     players.forEach(player => {
         result.push(`<li class="list-group-item">${player}</li>`);
 
         if (player === localStorage.getItem('username')) {
-            result[result.length - 1] = `<li class="list-group-item list-group-item-primary">${player}</li>`;
+            result[result.length - 1] = `<li class="list-group-item list-group-item-info">${player}</li>`;
         }
-
+        if (game.turn === player) {
+            result[result.length - 1] = `<li class="list-group-item list-group-item-primary">Turno de ${player}</li>`;
+        }
     });
 
     return result.join('');
@@ -124,72 +126,56 @@ function serverGameValidator(data) {
     }
 }
 
-function loadError() {
-
-    $('#gamesAvailable').removeClass('row-cols-md-3')
-        .append(
-            `<div class="col">
-        <h2 class="text-center">No hay partidas disponibles o no has iniciado sesión</h2>
-        </div>`
-        );
-
+function loadError(){
+    $('main').html(`
+        <div class="container">
+            <div class="row mt-5">
+                <div class="col-12 p-0 ">
+                    <div class="alert alert-danger m-0 text-center" role="alert">
+                        <h2 class="alert-heading p-4">Error!</h2>
+                        <h5 class="p-4">No se han encontrado partidas o no has iniciado sesión</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `);
 }
 
-function loadNotFound() {
-    $('#gamesAvailable').removeClass('row-cols-md-3')
-        .append(
-            `<div class="col">
-        <h2 class="text-center">No hay partidas disponibles o no has iniciado sesión</h2>
-        </div>`
-        );
-}
-
-function loadPassModal(gameName) {
+function loadPassModal(gameId, gameName) {
+    $('#passModalTitle').html("");
+    $('#gamePassword').val("");
 
     $('#passModalTitle').append(gameName);
+    $('#gameId').val(gameId);
     $('#passModal').modal('show');
 
-    $("#passModal").on("hidden.bs.modal", function () {
-        $('#passModalTitle').html("");
-    });
-
-    $("#aceptPassword").on("click", function () {
-
-        let password = $('#gamePassword').val();
-
-        $('#passModal').modal('hide');
-
-        joinGame(gameName, password);
-
-    });
+    console.log("Erasing modal pass");;
 }
 
 function loadCreateGameModal() {
     $('#createGameModal').modal('show');
 
-    $("#acceptCreateGame").on("click", function (event) {
-        event.preventDefault();
-
-        let gameName = $('#createGameName').val();
-        let password = $('#createGamePassword').val();
-        let points = $('#createGamePoints').val();
-
-        $('#createGameModal').modal('hide');
-
-        createGame(gameName, password, points);
-
+    $('#createGameModal').on('hidden.bs.modal', function () {
+        $('#createGameName').val("");
+        $('#createGamePassword').val("");
+        $('#createGamePoints').val("");
     });
 
 }
 
-function joinGame(gameName, password) {
+function loadErrorModal() {
+    $('#errorModal').modal('show');
+}
+
+function joinGame(gameId, password) {
+    console.log( "gameId: " + gameId + " password: " + password);
     $.ajax({
         type: "POST",
         datatype: "json",
         url: "https://api-kiriki.herokuapp.com/api/join_game",
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         data: ({
-            game_name: gameName,
+            game_id: gameId,
             player_name: localStorage.getItem('username'),
             game_pass: password
         }),
@@ -197,7 +183,7 @@ function joinGame(gameName, password) {
             console.log(json);
         },
         error: function (result) {
-            console.log(result);
+            loadErrorModal();
         }
     });
     ajaxGetGames();
@@ -233,11 +219,11 @@ function startGame() {
         url: "https://api-kiriki.herokuapp.com/api/start_game",
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         data: ({
-            game_name: $('#startGame').parent().parent().find('.card-title').text(),
+            game_id: $('#startGame').parent().parent().find('.gameId').text(),
             host_name: localStorage.getItem('username')
         }),
         success: function (json) {
-            console.log(json);
+            ajaxGetStartedGames();
         },
         error: function (result) {
             console.log(result);
@@ -245,8 +231,6 @@ function startGame() {
     });
     ajaxGetGames();
 };
-
-
 
 function ajaxGetGames() {
 
@@ -299,8 +283,9 @@ $('#gamesAvailable').on('click', '.joinGame', function (event) {
     event.preventDefault();
 
     let gameName = $(this).parent().parent().find('.card-title').text();
+    let gameId = $(this).parent().parent().find('.gameId').text();
 
-    loadPassModal(gameName);
+    loadPassModal(gameId, gameName);
 
 });
 
@@ -320,22 +305,35 @@ $('#search').on('keyup', (event) => {
     });
 });
 
-function startGame() {
-    $.ajax({
-        type: "POST",
-        datatype: "json",
-        url: "https://api-kiriki.herokuapp.com/api/start_game",
-        headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
-        data: ({
-            game_name: $('#startGame').parent().parent().find('.card-title').text(),
-            host_name: localStorage.getItem('username')
-        }),
-        success: function (json) {
-            console.log(json);
-        },
-        error: function (result) {
-            console.log(result);
-        }
-    });
+
+
+$("#aceptPassword").on("click", function (event) {
+    event.preventDefault();
+
+    let password = $('#gamePassword').val();
+    let gameId = $('#gameId').val();
+
+    joinGame(gameId, password);
+    
+    $('#passModal').modal('hide');
     ajaxGetGames();
-};
+    ajaxGetStartedGames();
+});
+
+$("#acceptCreateGame").on("click", function (event) {
+    event.preventDefault();
+
+    let gameName = $('#createGameName').val();
+    let password = $('#createGamePassword').val();
+    let points = $('#createGamePoints').val();
+
+    $('#createGameModal').modal('hide');
+
+    createGame(gameName, password, points);
+
+});
+
+$('#startGame').on('click', function (event) {
+    event.preventDefault();
+    startGame();
+});

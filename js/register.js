@@ -19,7 +19,7 @@
 })()
 
 function resetErrors() {
-    $(':input').css({'border-color': '#ced4da', 'box-shadow': 'none'});
+    $(':input').css({ 'border-color': '#ced4da', 'box-shadow': 'none' });
     $('.invalid-feedback').removeClass('d-block').html('');
 }
 
@@ -121,10 +121,9 @@ function serverValidator(data) {
         $('#email').css('border', '1px solid red');
         $('#emailFeedback').addClass("d-block")
             .html('Ya hay un jugador con ese correo');
-    } 
+    }
 
 }
-
 
 
 $("#register").on("click", function (event) {
@@ -163,4 +162,5 @@ $("#register").on("click", function (event) {
             serverValidator(result.responseJSON);
         }
     });
+    return false;
 })
