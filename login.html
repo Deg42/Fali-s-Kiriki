@@ -19,7 +19,7 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
             <div class="container-fluid">
-                <a class="navbar-brand" href="index.html">
+                <a class="navbar-brand" href="login.html">
                     <img src="assets/logo.svg" alt="Kiriki logo">
                     <img src="assets/kiriki-brand-light.svg" />
                 </a>
@@ -31,18 +31,17 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link" href="index.html">Inicio</a></li>
-                        <li class="nav-item"><a class="nav-link active" href="games.html" id="play"> Jugar!</a></li>
-                        <li class="nav-item"><a class="btn btn-secondary" href="register.html" id="register"> Registrarse</a></li>
-                        <li class="nav-item"><a class="btn btn-primary" href="login.html" id="login"> Iniciar Sesión</a></li>
-                        <li class="nav-item"><a class="btn btn-outline-primary bg-warning" id="logout"> Cerrar Sesión</a>
+                        <li class="nav-item"><a class="nav-link active" href="games.html" id="playNav"> Jugar!</a></li>
+                        <li class="nav-item"><a class="btn btn-primary me-1" href="login.html" id="loginNav"> Iniciar Sesión</a></li>
+                        <li class="nav-item"><a class="btn btn-secondary" href="register.html" id="registerNav"> Registrarse</a></li>
+                        <li class="nav-item"><a class="btn btn-outline-primary bg-warning" id="logoutNav"> Cerrar Sesión</a>
                     </ul>
                 </div>
             </div>
         </nav>
     </header>
     <main>
-        <div class="container">
+        <div class="container bg-transparent">
             <div class="card mt-5 px-3">
                 <h1 class="text-center m-4">Iniciar sesión</h1>
                 <div class="d-flex flex-row justify-content-around">
@@ -121,7 +120,7 @@
                             </div>
 
                             <div class="d-grid gap-2 mt-4">
-                                <button id="loginButton" type="button" class="btn btn-primary btn-lg">Acceder</button>
+                                <button id="loginButton" type="submit" class="btn btn-primary btn-lg">Acceder</button>
                             </div>
                         </form>
                         <div class="d-grid gap-2 my-4">

@@ -60,7 +60,6 @@ function formHasError() {
 $("#loginButton").on("click", function (event) {
     event.preventDefault();
 
-    console.log("login");
     resetErrors();
 
     if (formHasError()) {
