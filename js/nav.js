@@ -12,9 +12,14 @@ function logout() {
 }
 
 function isTokenExpired() {
+    if (JSON.parse(localStorage.getItem('token')) === null) {
+        return true;
+    }
     let token = JSON.parse(localStorage.getItem('token'));
     let now = new Date().getTime();
     if (now > token.timestamp) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
         return true;
     }
     return false;

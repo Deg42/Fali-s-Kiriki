@@ -15,6 +15,7 @@ body {
   height: 64px;
   background-size: 64px 64px;
   background-repeat: no-repeat;
+  background-position: center
 }
 
 .turned-30 {
@@ -48,8 +49,17 @@ body {
   background-image: url("../assets/icons/as-dice.svg");
 }
 
-#yourTurn:hover {
-  /* shake animation  */
+.btn-modifier{
+width: 48px;
+}
+
+.flip:hover
+{
+    transform: rotate(360deg);
+    transition: all 0.3s ease-in-out 0s;
+}
+
+.shake:hover {
   animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
   backface-visibility: hidden;
@@ -77,6 +87,44 @@ body {
   60% {
     transform: translate3d(4px, 0, 0);
   }
+}
+
+.shake-alt:hover {
+  animation: shake-alt 0.4s infinite;
+}
+
+@keyframes shake-alt {
+  0% {
+      transform: translateX(0px) rotate(0deg);
+  }
+
+  20% {
+      transform: translateX(-4px) rotate(-4deg);
+  }
+
+  40% {
+      transform: translateX(-2px) rotate(-2deg);
+  }
+
+  60% {
+      transform: translateX(4px) rotate(4deg);
+  }
+
+  80% {
+      transform: translateX(2px) rotate(2deg);
+  }
+
+  100% {
+      transform: translateX(0px) rotate(0deg);
+  }
+}
+
+.zoom {
+  transition: transform .2s;
+}
+
+.zoom:hover {
+  transform: scale(1.2);
 }
 
 /* Login */

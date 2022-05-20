@@ -3,13 +3,13 @@
 ## TODO
 ### General
 - [ ] Better testing 
-- [ ] Routing URLs ?
+- [X] Routing URLs ?
 - [ ] Add 404 page
 - [X] Add logout
 
 ### Navbar
-- [ ] Fix navbar
-- [ ] Fix active class
+- [X] Fix navbar
+- [X] Fix active class
 
 ### Login
 See login.js comments

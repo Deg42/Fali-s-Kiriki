@@ -78,7 +78,9 @@ $("#loginButton").on("click", function (event) {
             password: password
         }),
         success: function (json) {
-            localStorage.setItem("token", JSON.stringify({ value: json.token, timestamp: new Date().getTime()+ 3600000 }));
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            localStorage.setItem("token", JSON.stringify({ value: json.token, timestamp: new Date().getTime() + 3600000 }));
             localStorage.setItem("username", username);
 
             $('#username').val("");
