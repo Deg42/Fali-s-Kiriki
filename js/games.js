@@ -1,4 +1,4 @@
-jQuery (function () {
+jQuery(function () {
 
     if (isTokenExpired()) {
         loadError();
@@ -21,7 +21,7 @@ function loadGames(json) {
                     <div class="card-body ">
                         <h5 class="card-title">${game.name}</h5>
                         <small class="d-none gameId">${game.id}</small>
-                    </div><ul class="list-group list-group-flush">${getPlayers(game)}</ul>
+                    </div><ul class="list-group list-group-flush">${getPlayersUnestarted(game)}</ul>
                     <div class="card-footer">
                         ${buttonToJoinGame(game)}
                         ${pWaitingToStart(game)}
@@ -30,6 +30,10 @@ function loadGames(json) {
                     </div>
                 </div>
             </div>`);
+
+        if (game.host === localStorage.getItem('username')) {
+            disableCreateButton();
+        }
     });
 
 }
@@ -46,7 +50,18 @@ function loadStartedGamesWherePlayerIs(json) {
                     <div class="card-body ">
                         <h5 class="card-title">${game.name}</h5>
                         <small class="d-none gameId">${game.id}</small>
-                    </div><ul class="list-group list-group-flush">${getPlayers(game)}</ul>
+                    </div>
+                    <table class="card-table table table-light table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Puntos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        ${getPlayersStarted(game)}
+                        </tbody>
+                    </table>
                     <div class="card-footer">
                         ${buttonToContinue(game)}
                         ${smallHostText(game)}
@@ -55,9 +70,7 @@ function loadStartedGamesWherePlayerIs(json) {
             </div>`);
 
         if (game.host === localStorage.getItem('username')) {
-            $('#createGame').attr('disabled', true);
-            $('#createGame').removeClass('btn-primary').addClass('btn-secondary');
-            $('#createGame').html('<i class="fa fa-xmark m-2" width="48px"></i>Ya has creado una partida');
+            disableCreateButton();
         }
     });
 
@@ -111,10 +124,41 @@ function buttonToStartIfHost(game) {
     return '';
 }
 
-function getPlayers(game) {
+function getPlayersStarted(game) {
     let players = game.players.results;
     let result = [];
     console.log(game);
+
+
+    players.forEach(player => {
+        result.push(`<tr">
+        <td>${player.name}</td>
+        <td>${player.points}</td>
+        </tr>`);
+
+        if (player.name === localStorage.getItem('username')) {
+            result[result.length - 1] = `<tr class="table-info">
+            <td>${player.name}</td>
+            <td>${player.points}</td>
+            </tr>`;
+        }
+        if (game.turn === player.name) {
+            result[result.length - 1] = `<tr class="table-primary">
+            <td>Turno de ${player.name}</td>
+            <td>${player.points}</td>
+            </tr>`;
+        }
+    });
+
+    return result.join('');
+
+}
+
+function getPlayersUnestarted(game) {
+    let players = game.players.results;
+    let result = [];
+    console.log(game);
+
 
     players.forEach(player => {
         result.push(`<li class="list-group-item">${player}</li>`);
@@ -137,7 +181,7 @@ function serverGameValidator(data) {
     }
 }
 
-function loadError(){
+function loadError() {
     $('main').html(`
         <div class="container">
             <div class="row mt-5">
@@ -160,7 +204,7 @@ function loadPassModal(gameId, gameName) {
     $('#gameId').val(gameId);
     $('#passModal').modal('show');
 
-    console.log("Erasing modal pass");;
+    console.log("Erasing modal pass");
 }
 
 function loadCreateGameModal() {
@@ -178,8 +222,25 @@ function loadErrorModal() {
     $('#errorModal').modal('show');
 }
 
+function disableCreateGameModal() {
+    $('#createGameModal').modal('hide');
+    $('#createGameName').val("");
+    $('#createGamePassword').val("");
+    $('#createGamePoints').val("");
+    $('#createGame').prop('disabled', true);
+
+    disableCreateButton();
+
+}
+
+function disableCreateButton() {
+    $('#createGame').attr('disabled', true);
+    $('#createGame').removeClass('btn-primary').addClass('btn-secondary');
+    $('#createGame').html('<i class="fa fa-xmark m-2" width="48px"></i>Ya has creado una partida');
+}
+
 function joinGame(gameId, password) {
-    console.log( "gameId: " + gameId + " password: " + password);
+    console.log("gameId: " + gameId + " password: " + password);
     $.ajax({
         type: "POST",
         datatype: "json",
@@ -214,6 +275,7 @@ function createGame(gameName, password, points) {
         }),
         success: function (json) {
             ajaxGetGames();
+            disableCreateGameModal();
         },
         error: function (result) {
             console.log(result);
@@ -315,7 +377,7 @@ $("#aceptPassword").on("click", function (event) {
     let gameId = $('#gameId').val();
 
     joinGame(gameId, password);
-    
+
     $('#passModal').modal('hide');
     ajaxGetGames();
     ajaxGetStartedGames();

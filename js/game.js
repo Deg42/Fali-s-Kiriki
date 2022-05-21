@@ -106,11 +106,13 @@ $('#announce').on('click', function (e) {
         success: function (result) {
             console.log(result);
             displayBidResult(result);
+            gameData();
             displaySpectate();
         },
         error: function (result) {
             console.log(result);
-            alert(result.responseJSON.error);
+            loadErrorModal(result.responseJSON)
+
         }
     });
 });
@@ -147,7 +149,7 @@ function loadData(result) {
         getLastBid();
         hideRoll();
         hideBid();
-        //getOwnRoll();    
+        getOwnRoll();    
     }
 }
 
@@ -183,13 +185,19 @@ function handlerError(json) {
 
     if (json.error === "You have not rolled yet") {
         $('#bid').addClass('d-none');
-        displayRollDices();
     }
 
     if (json.error === "You already rolled, make a bid") {
         changeToBid();
     }   
 
+}
+
+function loadErrorModal(json) {
+   if ( json.error === 'Bid is not greater or equal than last bid'){
+    $('#errorMessage').html(`El valor anunciado no es mayor o igual al anunciado por el jugador anterior`);
+}
+    $('#errorModal').modal('show');
 }
 
 function displayLastBid(json) {
@@ -215,7 +223,9 @@ function displayRollResult(result) {
 };
 
 function displayBidResult(result) {
-    $('yourBidResult').removeClass('d-none');
+    console.log('Displaying bid result');
+    console.log(result.bid_value);
+    $('#yourBidResult').removeClass('d-none');
     $('#yourBid1').addClass('dice-' + result.bid_1);
     $('#yourBid2').addClass('dice-' + result.bid_2);
     $('#yourBidValue').html(result.bid_value);
@@ -333,3 +343,10 @@ function lessValue(bid, bidImage) {
 
     $(bidImage).addClass("dice-" + val);
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+$('#test').on('click', function (e) { 
+    displayBidResult();
+
+});

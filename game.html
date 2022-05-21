@@ -36,7 +36,7 @@
                                 Sesión</a></li>
                         <li class="nav-item"><a class="btn btn-secondary" href="register.html" id="registerNav">
                                 Registrarse</a></li>
-                        <li class="nav-item"><a class="btn btn-outline-primary bg-warning" id="logoutNav"> Cerrar
+                        <li class="nav-item"><a class="btn btn-outline-dark bg-warning" id="logoutNav"> Cerrar
                                 Sesión</a>
                     </ul>
                 </div>
@@ -132,7 +132,7 @@
             <div class="row justify-content-center bg-success" id="spectate">.
                 <div class="row d-none" id="yourBidResult">
                     <div class="col text-center mb-4"> 
-                        <h1 class="my-4 text-light">Dices que has sacado<span class="fst-italic fw-bold" id="yourBidValue"></span></h1>
+                        <h1 class="my-4 text-light">Dices que has sacado <span class="fst-italic fw-bold" id="yourBidValue"></span></h1>
                         <div class="row mb-4 justify-content-center">
                             <div class="col-6 mx-5 dice flip" id="yourBid1"></div>
                             <div class="col-6 mx-5 dice flip" id="yourBid2"></div>
@@ -162,6 +162,28 @@
                     <div class="row mt-4 justify-content-center">
                         <div class="col-6 mx-5 dice flip" id="pointDice1"></div>
                         <div class="col-6 mx-5 dice flip" id="pointDice2"></div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="errorModal" tabindex="-1" data-bs-keyboard="false" aria-labelledby="errorModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Error!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="alert alert-danger d-flex align-items-center" role="alert">
+                        <i class="fa-solid fa-triangle-exclamation fa-lg me-2"></i>
+                        <div id="errorMessage">
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

@@ -28,11 +28,13 @@ function isTokenExpired() {
 jQuery(function () {
 
     if (localStorage.getItem('token') === null || isTokenExpired()) {
+        $('.navbar-brand').attr('href', 'login.html');
         $('#logoutNav').hide();
         $('#playNav').hide();
         $('#loginNav').show();
         $('#registerNav').show();
     } else {
+        $('.navbar-brand').attr('href', 'games.html');
         $('#logoutNav').show();
         $('#playNav').show();
         $('#loginNav').hide();
