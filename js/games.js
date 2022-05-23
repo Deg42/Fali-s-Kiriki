@@ -240,7 +240,7 @@ function disableCreateButton() {
 }
 
 function joinGame(gameId, password) {
-    console.log("gameId: " + gameId + " password: " + password);
+    console.log("Joining game...");
     $.ajax({
         type: "POST",
         datatype: "json",
@@ -297,12 +297,12 @@ function startGame() {
         }),
         success: function (json) {
             ajaxGetStartedGames();
+            ajaxGetGames();
         },
         error: function (result) {
             console.log(result);
         }
     });
-    ajaxGetGames();
 };
 
 function ajaxGetGames() {
@@ -370,7 +370,7 @@ $('#search').on('keyup', (event) => {
 
 
 
-$("#aceptPassword").on("click", function (event) {
+$("#aceptPassword").on("submit", function (event) {
     event.preventDefault();
 
     let password = $('#gamePassword').val();
@@ -396,7 +396,8 @@ $("#acceptCreateGame").on("click", function (event) {
 
 });
 
-$('#startGame').on('click', function (event) {
+$("body").on('click', '#startGame', function (event) {
     event.preventDefault();
+    console.log('starting game');
     startGame();
 });

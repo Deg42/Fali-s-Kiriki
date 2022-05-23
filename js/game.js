@@ -15,18 +15,18 @@ jQuery(function () {
 });
 
 function gameData() {
-    console.log('gameData');
+    console.log('Obtaining game data...');
     $.ajax({
         type: "GET",
         datatype: "json",
         url: "https://api-kiriki.herokuapp.com/api/game?player_name=" + localStorage.getItem('username') + "&game_id=" + gameId,
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         success: function (result) {
-            console.log(result);
+            console.log('Data loaded');
             loadData(result);
         },
         error: function (result) {
-            console.log(result);
+            console.log('Cant load data');
             loadError();
         }
     });
@@ -40,9 +40,12 @@ function getLastBid() {
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         success: function (result) {
             displayLastBid(result);
+            // Hiding roll in second turn
+            hideRoll()
+            // 
         },
         error: function (result) {
-            console.log(result);
+            console.log('Cant get last bid');
             handlerError(result.responseJSON);
         }
     });
@@ -55,13 +58,15 @@ function getOwnRoll() {
         url: "https://api-kiriki.herokuapp.com/api/get_own_roll?player_name=" + localStorage.getItem('username') + "&game_id=" + gameId,
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         success: function (result) {
-            console.log(result);
-            getLastBid();
+            console.log('Getting own roll');
+            // Loop of getiing Bid -> Geting own roll
+             getLastBid();
+            // 
             displayRollResult(result);
             hideDecideButtons();
         },
         error: function (result) {
-            console.log(result);
+            console.log('Cant get own roll');
             handlerError(result.responseJSON);
         }
     });
@@ -118,6 +123,7 @@ $('#announce').on('click', function (e) {
 });
 
 
+
 function getLastRoll() {
     $.ajax({
         type: "GET",
@@ -132,12 +138,15 @@ function getLastRoll() {
             console.log(result);
         }
     });
+    
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function loadData(result) {
+    console.log('Loading data and updating screen .. ');
     if (result.turn !== localStorage.getItem('username')) {
+        console.log('Not your turn');
         $('#decide').addClass('d-none');
         $('#roll').addClass('d-none');
         $('#bid').addClass('d-none');
@@ -145,9 +154,9 @@ function loadData(result) {
     }
 
     if (result.turn === localStorage.getItem('username')) {
+        console.log('Your turn');
         $('#spectate').addClass('d-none');
         getLastBid();
-        hideRoll();
         hideBid();
         getOwnRoll();    
     }
@@ -170,18 +179,21 @@ function loadError() {
 
 function handlerError(json) {
 
+    
     if (json.error === "No bids yet or its the first turn") {
-        $('#decide').addClass('d-none');
+        console.log('No bids yet or its the first turn');
+        hideDecide();
         getOwnRoll();
     }
 
     if (json.error === "It is not your turn") {
         $('#roll').addClass('d-none');
-        $('#decide').addClass('d-none');
+        hideDecide();
         $('#bid').addClass('d-none');
         $('#spectate').removeClass('d-none');
         gameData();
     }
+    
 
     if (json.error === "You have not rolled yet") {
         $('#bid').addClass('d-none');
@@ -208,18 +220,23 @@ function displayLastBid(json) {
 }
 
 function displayRollDices(){
-    console.log('displayRollDices');
+    console.log('Displaying roll dices');
     $('#roll').removeClass('d-none');
     $('#bid').addClass('d-none');
 }
 
 function displayRollResult(result) {
+    console.log('Displaying roll result');
     $('#roll').addClass('d-none');
     $('#bid').removeClass('d-none');
 
     $('#roll1').addClass('dice-' + result.roll_1);
     $('#roll2').addClass('dice-' + result.roll_2);
     $('#rollValue').html(result.roll_value);
+
+    if (result.roll_value === 'kiriki') { 
+        loadPointResultModal(result);
+    }
 };
 
 function displayBidResult(result) {
@@ -243,24 +260,27 @@ function hideDecideButtons(){
 }
 
 function hideDecide(){
+    console.log('Hiding decide');
     $('#decide').addClass('d-none');
 }
 
 function hideRoll(){
-    console.log('hideRoll');
+    console.log('Hiding roll');
     $('#roll').addClass('d-none');
 }
 
 function hideBid(){
+    console.log('Hiding bid');
     $('#bid').addClass('d-none');
 }
 
 function hideAnnounce(){
+    console.log('Hiding announce');
     $('#announce').addClass('d-none');
 }
 
 function loadPointResultModal(json) {
-    console.log(json.point_loser)
+    console.log("Loser: " +json.point_loser)
 
     json.point_loser === localStorage.getItem('username')
         ? $('#whosLoser').addClass('text-danger').html('Has perdido')
@@ -288,11 +308,27 @@ $('#acceptButton').on('click', function (e) {
     hideDecideButtons();
 });
 
-$('#rejectButton').on('click', function (e) {
-    e.preventDefault();
+$('#rejectButton').on('click', function () {
+    
     getLastRoll();
 });
 
+$('.reloadData').on('click', function (e) {
+    e.preventDefault();
+    gameData();
+});
+
+$('#hideTable').on('click', function (e) {
+    e.preventDefault();
+    console.log('Hiding table');
+    if ($('#valueTable').hasClass('d-none')) {
+        $('#valueTable').removeClass('d-none');
+        $('#hideTable').children('i').removeClass('fa-caret-down').addClass('fa-caret-up');
+    } else {
+        $('#valueTable').addClass('d-none');
+        $('#hideTable').children('i').removeClass('fa-caret-up').addClass('fa-caret-down');
+    }
+})
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 $('#moreValue1').on('click', function (e) {

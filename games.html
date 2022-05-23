@@ -34,9 +34,12 @@
                         <li class="nav-item"><a class="nav-link active" href="games.html" id="playNav"> Jugar!</a></li>
                         <li class="nav-item"><a class="nav-link" href="ranking.html" id="rankingNav"> Ranking</a>
                         </li>
-                        <li class="nav-item"><a class="btn btn-primary me-1" href="login.html" id="loginNav"> Iniciar Sesión</a></li>
-                        <li class="nav-item"><a class="btn btn-secondary" href="register.html" id="registerNav"> Registrarse</a></li>
-                        <li class="nav-item"><a class="btn btn-outline-dark bg-warning" id="logoutNav"> Cerrar Sesión</a>
+                        <li class="nav-item"><a class="btn btn-primary me-1" href="login.html" id="loginNav"> Iniciar
+                                Sesión</a></li>
+                        <li class="nav-item"><a class="btn btn-secondary" href="register.html" id="registerNav">
+                                Registrarse</a></li>
+                        <li class="nav-item"><a class="btn btn-outline-dark bg-warning" id="logoutNav"> Cerrar
+                                Sesión</a>
                     </ul>
                 </div>
             </div>
@@ -45,7 +48,8 @@
     <main>
         <div class="container bg-light flex-grow">
 
-            <h1 class="text-center pt-5"><img class="turned-30" src="assets/icons/two-dices-alt.svg" width="48px"/> Tus Partidas <img  class="turned-60" src="assets/icons/two-dices-alt.svg" width="48px"/>
+            <h1 class="text-center pt-5"><img class="turned-30" src="assets/icons/two-dices-alt.svg" width="48px" /> Tus
+                Partidas <img class="turned-60" src="assets/icons/two-dices-alt.svg" width="48px" />
             </h1>
             <div class="row mt-5 ">
                 <div class="col my-3 d-grid d-md-block gap-2 ms-md-5">
@@ -84,17 +88,17 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form>
+                    <form id="aceptPassword">
                         <div class="input-group">
                             <input type="hidden" id="gameId" />
                             <input type="password" id="gamePassword" class="form-control" placeholder="Contraseña"
                                 autocomplete="on">
                         </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                            <button type="submit" class="btn btn-primary">Aceptar</button>
+                        </div>
                     </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
-                    <button type="button" class="btn btn-primary" id="aceptPassword">Aceptar</button>
                 </div>
             </div>
         </div>
@@ -125,10 +129,10 @@
                                 <i class="fas fa-lock fa-lg"></i></span>
                             <div class="form-floating flex-grow-1 mb-2">
                                 <input type="password" id="createGamePassword" class="form-control"
-                                    placeholder="Contraseña" autocomplete="on"/>
-                                    <button id="toggle-password" type="button" class="d-none"
-                                        aria-label="Show password as plain text. Warning: this will display your password on the screen.">
-                                    </button>
+                                    placeholder="Contraseña" autocomplete="on" />
+                                <button id="toggle-password" type="button" class="d-none"
+                                    aria-label="Show password as plain text. Warning: this will display your password on the screen.">
+                                </button>
                                 <label class="form-label ms-2" for="createGamePassword">Contraseña</label>
                                 <div id="passwordFeedback" class="invalid-feedback"></div>
                             </div>

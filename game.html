@@ -45,8 +45,73 @@
     </header>
     <main>
         <div class="container bg-light">
-            <h1>Game name</h1>
             <button id="test"></button>
+            <div class="row d-flex justify-content-center bg-light">
+                <div class="col fs-5 text-center my-4">
+                    <h1>Nombre del juego</h1>
+                </div>
+                <div class="col fs-5 my-4">
+                    <div class="row">
+                        <div class="col">
+                            <button class="btn btn-primary" id="hideTable">Tabla de Valores <i
+                                    class="fa fa-caret-down"></i>
+                            </button>
+                        </div>
+                        <div class="col">
+                            <ol class="list-group list-group-numbered fw-bold d-none" id="valueTable">
+                                <li class="list-group-item d-flex align-items-start bg-primary text-light">
+                                    <div class="ms-2 me-auto  text-center">
+                                        <div>Sumas simples</div>
+                                        <div class="d-flex mt-2 gap-2 gap-md-5 fs-7">
+                                            <span class="h-25 md-dice">1</span>
+                                            <span class="h-25 md-dice">2</span>
+                                            <span class="h-25 md-dice">3</span>
+                                            <span class="h-25 md-dice">4</span>
+                                            <span class="h-25 md-dice">5</span>
+                                            <span class="h-25 md-dice">6</span>
+                                        </div>
+                                        <div class="d-flex gap-2 gap-md-5">
+                                            <span class="md-dice dice-1"></span>
+                                            <span class="md-dice dice-2"></span>
+                                            <span class="md-dice dice-3"></span>
+                                            <span class="md-dice dice-4"></span>
+                                            <span class="md-dice dice-5"></span>
+                                            <span class="md-dice dice-6"></span>
+                                        </div>
+                                        <div class="d-flex gap-2 gap-md-5 fs-7 text-nowrap ">
+                                            <span class="md-dice">Negras</span>
+                                            <span class="md-dice">Rojas</span>
+                                            <span class="md-dice">Jota</span>
+                                            <span class="md-dice">Dama</span>
+                                            <span class="md-dice">Rey</span>
+                                            <span class="md-dice">As</span>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">Tocho</div>
+                                        Cras justo odio
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">Parejas (dos iguales)</div>
+                                        Cras justo odio
+                                    </div>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-start">
+                                    <div class="ms-2 me-auto">
+                                        <div class="fw-bold">Kiriki</div>
+                                        Cras justo odio
+                                    </div>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <div class="row d-flex justify-content-center bg-warning" id="decide">
                 <div class="col fs-5 text-center my-4" id="lastValue"></div>
                 <div class="row mb-4 justify-content-center">
@@ -131,8 +196,9 @@
 
             <div class="row justify-content-center bg-success" id="spectate">.
                 <div class="row d-none" id="yourBidResult">
-                    <div class="col text-center mb-4"> 
-                        <h1 class="my-4 text-light">Dices que has sacado <span class="fst-italic fw-bold" id="yourBidValue"></span></h1>
+                    <div class="col text-center mb-4">
+                        <h1 class="my-4 text-light">Dices que has sacado <span class="fst-italic fw-bold"
+                                id="yourBidValue"></span></h1>
                         <div class="row mb-4 justify-content-center">
                             <div class="col-6 mx-5 dice flip" id="yourBid1"></div>
                             <div class="col-6 mx-5 dice flip" id="yourBid2"></div>
@@ -155,7 +221,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h3 class="modal-title" id="whosLoser"></h3>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close reloadData" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
                     <h5 id="loserResult"></h5>
@@ -165,7 +232,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+                    <button type="button" class="btn btn-danger reloadData" data-bs-dismiss="modal">Cerrar</button>
                 </div>
             </div>
         </div>

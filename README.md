@@ -1,10 +1,12 @@
 # Kiriki-web
 
 ## TODO
-### General
-- [ ] Better testing 
+
+### Bugs
+- [ ] Roll dices and reload
+
+### General 
 - [X] Routing URLs ?
-- [ ] Add 404 page
 - [X] Add logout
 
 ### Navbar
@@ -29,3 +31,11 @@ See register.js comments
 - [X] Search bar
 - [X] Modal create game
 - [X] Join game
+- [ ] Validations on create game
+- [ ] Color on table points
+
+### Game
+- [ ] Game name
+- [ ] *'Kiriki'* on roll
+- [ ] Value table
+- [ ] Winning a game
