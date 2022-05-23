@@ -21,7 +21,6 @@ function serverValidator(data) {
 
     console.log(data);
     if (data.message === "Invalid credentials.") {
-        console.log("bbb");
         $('#username').css('border', '1px solid red');
         $('#password').css('border', '1px solid red');
         $('#generalFeedback').addClass("d-block")

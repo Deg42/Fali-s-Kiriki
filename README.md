@@ -2,12 +2,19 @@
 
 ## TODO
 
+## Wontfix
+- [X] Remind me
+- [X] Forgot Password
+- [X] Change images
+
 ### Bugs
-- [ ] Roll dices and reload
+- [X] Roll dices and reload
 
 ### General 
 - [X] Routing URLs ?
 - [X] Add logout
+- [ ] Cancel background image animation cancel
+- [ ] Translate values
 
 ### Navbar
 - [X] Fix navbar
@@ -16,15 +23,11 @@
 ### Login
 See login.js comments
 - [X] Front Validations
-- [ ] Remind me
-- [ ] Forgot Password
-- [ ] Change image
 
 ### Register
 See register.js comments
 - [X] Front Validations
-- [ ] Terms and Conditions
-- [ ] Change image
+- [X] Terms and Conditions
 
 ### Games
 - [X] Get games
@@ -32,10 +35,10 @@ See register.js comments
 - [X] Modal create game
 - [X] Join game
 - [ ] Validations on create game
-- [ ] Color on table points
+- [X] Color on table points
 
 ### Game
-- [ ] Game name
-- [ ] *'Kiriki'* on roll
-- [ ] Value table
-- [ ] Winning a game
+- [X] Game name
+- [X] *'Kiriki'* on roll 
+- [X] Value table
+- [ ] Winning a game, update game

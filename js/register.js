@@ -163,4 +163,9 @@ $("#register").on("click", function (event) {
         }
     });
     return false;
-})
+});
+
+$('#showTerms').on('click', function (e) {
+    e.preventDefault();
+    $('#termsModal').modal('show');
+});

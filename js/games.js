@@ -76,6 +76,14 @@ function loadStartedGamesWherePlayerIs(json) {
 
 };
 
+function colourPoints(points) {
+    if (points <= 1) {
+        return `<span class="text-danger">${points}</span>`;
+    }
+    return points;
+
+}
+
 function buttonToContinue(game) {
     if (game.turn === localStorage.getItem('username')) {
         return `<a class="btn btn-primary me-5 shake" id="yourTurn" href="/game.html?id=${game.id}"><img class="turned-30" src="assets/icons/two-dices.svg" width="32px"></img> Tu turno!</a>`;
@@ -90,6 +98,7 @@ function buttonToJoinGame(game) {
     let username = localStorage.getItem('username');
 
     if (!players.includes(username)) {
+        console.log("can join");
         return `<a class="btn btn-secondary me-5 joinGame">Unirse</a>`;
     }
 
@@ -133,19 +142,19 @@ function getPlayersStarted(game) {
     players.forEach(player => {
         result.push(`<tr">
         <td>${player.name}</td>
-        <td>${player.points}</td>
+        <td class="fw-bold">${colourPoints(player.points)}</td>
         </tr>`);
 
         if (player.name === localStorage.getItem('username')) {
-            result[result.length - 1] = `<tr class="table-info">
+            result[result.length - 1] = `<tr class="table-primary">
             <td>${player.name}</td>
-            <td>${player.points}</td>
+            <td class="fw-bold">${colourPoints(player.points)}</td>
             </tr>`;
         }
         if (game.turn === player.name) {
-            result[result.length - 1] = `<tr class="table-primary">
+            result[result.length - 1] = `<tr class="table-info">
             <td>Turno de ${player.name}</td>
-            <td>${player.points}</td>
+            <td class="fw-bold">${colourPoints(player.points)}</td>
             </tr>`;
         }
     });

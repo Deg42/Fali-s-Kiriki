@@ -39,9 +39,10 @@ function getLastBid() {
         url: "https://api-kiriki.herokuapp.com/api/get_bid?player_name=" + localStorage.getItem('username') + "&game_id=" + gameId,
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         success: function (result) {
+            console.log(result)
             displayLastBid(result);
             // Hiding roll in second turn
-            hideRoll()
+            hideRoll();
             // 
         },
         error: function (result) {
@@ -60,7 +61,7 @@ function getOwnRoll() {
         success: function (result) {
             console.log('Getting own roll');
             // Loop of getiing Bid -> Geting own roll
-             getLastBid();
+            // getLastBid();
             // 
             displayRollResult(result);
             hideDecideButtons();
@@ -138,13 +139,14 @@ function getLastRoll() {
             console.log(result);
         }
     });
-    
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function loadData(result) {
     console.log('Loading data and updating screen .. ');
+    changeGameName(result);
     if (result.turn !== localStorage.getItem('username')) {
         console.log('Not your turn');
         $('#decide').addClass('d-none');
@@ -158,7 +160,7 @@ function loadData(result) {
         $('#spectate').addClass('d-none');
         getLastBid();
         hideBid();
-        getOwnRoll();    
+        getOwnRoll();
     }
 }
 
@@ -179,7 +181,6 @@ function loadError() {
 
 function handlerError(json) {
 
-    
     if (json.error === "No bids yet or its the first turn") {
         console.log('No bids yet or its the first turn');
         hideDecide();
@@ -187,13 +188,9 @@ function handlerError(json) {
     }
 
     if (json.error === "It is not your turn") {
-        $('#roll').addClass('d-none');
-        hideDecide();
-        $('#bid').addClass('d-none');
-        $('#spectate').removeClass('d-none');
+        displaySpectate();
         gameData();
     }
-    
 
     if (json.error === "You have not rolled yet") {
         $('#bid').addClass('d-none');
@@ -201,14 +198,19 @@ function handlerError(json) {
 
     if (json.error === "You already rolled, make a bid") {
         changeToBid();
-    }   
+    }
 
 }
 
 function loadErrorModal(json) {
-   if ( json.error === 'Bid is not greater or equal than last bid'){
-    $('#errorMessage').html(`El valor anunciado no es mayor o igual al anunciado por el jugador anterior`);
-}
+    if (json.error === 'Bid is not greater or equal than last bid') {
+        $('#errorMessage').html(`El valor anunciado no es mayor o igual al anunciado por el jugador anterior`);
+    }
+
+    if (json.error === 'Not a valid bid') {
+        $('#errorMessage').html(`No puedes anunciar un KIRIKI, es el valor más alto`);
+    }
+
     $('#errorModal').modal('show');
 }
 
@@ -219,7 +221,7 @@ function displayLastBid(json) {
     $('#lastImage2').addClass('dice-' + json.bid_2);
 }
 
-function displayRollDices(){
+function displayRollDices() {
     console.log('Displaying roll dices');
     $('#roll').removeClass('d-none');
     $('#bid').addClass('d-none');
@@ -234,7 +236,7 @@ function displayRollResult(result) {
     $('#roll2').addClass('dice-' + result.roll_2);
     $('#rollValue').html(result.roll_value);
 
-    if (result.roll_value === 'kiriki') { 
+    if (result.roll_value === 'kiriki') {
         loadPointResultModal(result);
     }
 };
@@ -248,56 +250,77 @@ function displayBidResult(result) {
     $('#yourBidValue').html(result.bid_value);
 };
 
-function displaySpectate(){
+function displaySpectate() {
+    console.log('Displaying spectate');
     $('#spectate').removeClass('d-none');
     $('#roll').addClass('d-none');
     $('#decide').addClass('d-none');
     $('#bid').addClass('d-none');
 }
 
-function hideDecideButtons(){
+function hideDecideButtons() {
     $('#decideButtons').addClass('d-none');
 }
 
-function hideDecide(){
+function hideDecide() {
     console.log('Hiding decide');
     $('#decide').addClass('d-none');
 }
 
-function hideRoll(){
+function hideRoll() {
     console.log('Hiding roll');
     $('#roll').addClass('d-none');
 }
 
-function hideBid(){
+function hideBid() {
     console.log('Hiding bid');
     $('#bid').addClass('d-none');
 }
 
-function hideAnnounce(){
+function hideAnnounce() {
     console.log('Hiding announce');
     $('#announce').addClass('d-none');
 }
 
 function loadPointResultModal(json) {
-    console.log("Loser: " +json.point_loser)
 
-    json.point_loser === localStorage.getItem('username')
-        ? $('#whosLoser').addClass('text-danger').html('Has perdido')
-        : $('#whosLoser').addClass('text-success').html(json.point_loser + ' ha perdido');
+    
 
-    $('#loserResult').html(
-        `El jugador anterior ha sacado 
-        <span class="fw-bold fst-italic">${json.roll_value}</span> 
-        y dijo que tenía 
-        <span class="fw-bold fst-italic">${json.bid_value}</span>`
-    );
+    console.log("Loser: " + json.point_loser);
+
+    if (json.point_loser === localStorage.getItem('username')) {
+        $('#whosLoser').addClass('text-danger').html('Has perdido');
+        displayRollDices();
+    } else {
+        $('#whosLoser').addClass('text-success').html(json.point_loser + ' ha perdido');
+        displaySpectate();
+    }
+
     $('#pointDice1').addClass('dice-' + json.roll_1);
     $('#pointDice2').addClass('dice-' + json.roll_2);
 
+    if (json.roll_value == 'kiriki') {
+        $('#loserResult').html('Has sacado un kiriki!');
+
+    } else {
+        $('#loserResult').html(
+            `El jugador anterior ha sacado 
+        <span class="fw-bold fst-italic">${json.roll_value}</span> 
+        y dijo que tenía 
+        <span class="fw-bold fst-italic">${json.bid_value}</span>`
+        );
+    }
 
     $('#resultModal').modal('show');
 
+    gameData();
+    return false;
+}
+
+function changeGameName(json) {
+    console.log('Changing game name');
+    console.log(json);
+    $('#gameName').html(json.name);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -309,25 +332,15 @@ $('#acceptButton').on('click', function (e) {
 });
 
 $('#rejectButton').on('click', function () {
-    
+
     getLastRoll();
 });
 
-$('.reloadData').on('click', function (e) {
-    e.preventDefault();
-    gameData();
-});
-
-$('#hideTable').on('click', function (e) {
+$('#valueTableButton').on('click', function (e) {
     e.preventDefault();
     console.log('Hiding table');
-    if ($('#valueTable').hasClass('d-none')) {
-        $('#valueTable').removeClass('d-none');
-        $('#hideTable').children('i').removeClass('fa-caret-down').addClass('fa-caret-up');
-    } else {
-        $('#valueTable').addClass('d-none');
-        $('#hideTable').children('i').removeClass('fa-caret-up').addClass('fa-caret-down');
-    }
+    $('#valueTableModal').modal('show');
+
 })
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -382,7 +395,7 @@ function lessValue(bid, bidImage) {
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-$('#test').on('click', function (e) { 
+$('#test').on('click', function (e) {
     displayBidResult();
 
 });
