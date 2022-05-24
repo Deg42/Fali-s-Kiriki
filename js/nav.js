@@ -12,9 +12,14 @@ function logout() {
 }
 
 function isTokenExpired() {
+    if (JSON.parse(localStorage.getItem('token')) === null) {
+        return true;
+    }
     let token = JSON.parse(localStorage.getItem('token'));
     let now = new Date().getTime();
     if (now > token.timestamp) {
+        localStorage.removeItem('token');
+        localStorage.removeItem('username');
         return true;
     }
     return false;
@@ -23,11 +28,13 @@ function isTokenExpired() {
 jQuery(function () {
 
     if (localStorage.getItem('token') === null || isTokenExpired()) {
+        $('.navbar-brand').attr('href', 'login.html');
         $('#logoutNav').hide();
         $('#playNav').hide();
         $('#loginNav').show();
         $('#registerNav').show();
     } else {
+        $('.navbar-brand').attr('href', 'games.html');
         $('#logoutNav').show();
         $('#playNav').show();
         $('#loginNav').hide();

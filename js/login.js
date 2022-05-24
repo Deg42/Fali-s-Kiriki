@@ -21,7 +21,6 @@ function serverValidator(data) {
 
     console.log(data);
     if (data.message === "Invalid credentials.") {
-        console.log("bbb");
         $('#username').css('border', '1px solid red');
         $('#password').css('border', '1px solid red');
         $('#generalFeedback').addClass("d-block")
@@ -78,7 +77,9 @@ $("#loginButton").on("click", function (event) {
             password: password
         }),
         success: function (json) {
-            localStorage.setItem("token", JSON.stringify({ value: json.token, timestamp: new Date().getTime()+ 3600000 }));
+            localStorage.removeItem('token');
+            localStorage.removeItem('username');
+            localStorage.setItem("token", JSON.stringify({ value: json.token, timestamp: new Date().getTime() + 3600000 }));
             localStorage.setItem("username", username);
 
             $('#username').val("");

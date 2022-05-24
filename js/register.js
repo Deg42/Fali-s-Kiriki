@@ -104,9 +104,7 @@ function formHasError() {
 
     setValids(errors, elementsId);
 
-    if (errors.size > 0) {
-        return true;
-    }
+    return errors.size === 0;
 }
 
 function serverValidator(data) {
@@ -163,4 +161,9 @@ $("#register").on("click", function (event) {
         }
     });
     return false;
-})
+});
+
+$('#showTerms').on('click', function (e) {
+    e.preventDefault();
+    $('#termsModal').modal('show');
+});

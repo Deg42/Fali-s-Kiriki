@@ -32,10 +32,13 @@
                 </button>
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav">
-                        <li class="nav-item"><a class="nav-link active" href="games.html" id="playNav"> Jugar!</a></li>
-                        <li class="nav-item"><a class="btn btn-primary me-1" href="login.html" id="loginNav"> Iniciar Sesión</a></li>
-                        <li class="nav-item"><a class="btn btn-secondary" href="register.html" id="registerNav"> Registrarse</a></li>
-                        <li class="nav-item"><a class="btn btn-outline-primary bg-warning" id="logoutNav"> Cerrar Sesión</a>
+                        <li class="nav-item"><a class="nav-link" href="games.html" id="playNav"> Jugar!</a></li>
+                        <li class="nav-item"><a class="nav-link" href="ranking.html" id="rankingNav"> Ranking</a>
+                        </li>
+                        <li class="nav-item"><a class="btn btn-primary me-1" href="login.html" id="loginNav"> Iniciar
+                                Sesión</a></li>
+                        <li class="nav-item"><a class="btn btn-outline-dark bg-warning" id="logoutNav"> Cerrar
+                                Sesión</a>
                     </ul>
                 </div>
             </div>
@@ -47,19 +50,17 @@
                 <h1 class="text-center m-4">Registrarse</h1>
                 <div class="d-flex flex-row justify-content-around">
                     <div class="col-md-12 col-lg-6 col-xl-5 mt-3 px-1">
-                        <p>Si ya tienes cuenta, <span class="fw-bold">Inicia sesión</span> a través de este <a
-                                href="login.html" class="fw-bold">enlace</a>.</p>
-
-                        <form id="#registerForm" novalidate >
+                        <p class="mt-5">Si ya tienes cuenta, <a href="login.html" class="btn btn-success fw-bold">Inicia sesión aquí</a></p>
+                        <form id="#registerForm" novalidate>
                             <!-- Username input -->
                             <div class="input-group mb-4">
                                 <span class="input-group-text d-none d-sm-flex me-lg-3"><i
-                                    class="fas fa-user fa-lg"></i></span>
-                                    <div class="form-floating flex-grow-1">
-                                        <input type="text" id="username" class="form-control" placeholder="Usuario"
+                                        class="fas fa-user fa-lg"></i></span>
+                                <div class="form-floating flex-grow-1">
+                                    <input type="text" id="username" class="form-control" placeholder="Usuario"
                                         required />
-                                        <label class="form-label" for="username">Usuario</label>
-                                        <div id="usernameFeedback" class="invalid-feedback"></div>
+                                    <label class="form-label" for="username">Usuario</label>
+                                    <div id="usernameFeedback" class="invalid-feedback"></div>
                                 </div>
                             </div>
 
@@ -108,7 +109,8 @@
                                         <input class="form-check-input me-2" type="checkbox" value="" id="terms"
                                             name="terms" required />
                                         <label class="form-check-label" for="terms">
-                                            Estoy de acuerdo con los <a href="#" class="fw-bold">terminos y
+                                            Estoy de acuerdo con los <a href="" class="fw-bold" id="showTerms">terminos
+                                                y
                                                 condiciones</a>
                                         </label>
                                         <div id="termsFeedback" class="invalid-feedback"></div>
@@ -124,13 +126,48 @@
                     <div class="vr mb-4 d-none d-lg-block"></div>
                     <div class="col-md col-lg-6 col-xl-5 d-none d-lg-block">
                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-registration/draw1.webp"
-                            class="img-fluid" alt="Sample image">
+                            class="img-fluid mt-5" alt="Sample image">
                     </div>
                 </div>
             </div>
         </div>
     </main>
 
+    <div class="modal fade" id="termsModal" tabindex="-1" data-bs-keyboard="false" aria-labelledby="termsModal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Términos y condiciones</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>A continuación se encuentran los Términos y condiciones de servicio, que describen una gran
+                        cantidad de
+                        beneficios legales, pero la conclusión es que el objetivo es siempre cuidar de usted como
+                        usuario en nuestra plataforma. He incluido estos términos para
+                        protegerme legalmente, pero si tiene un problema, no dude en enviarnos un correo electrónico a
+                        jaglezrivera@gmail.com y haré todo lo posible para resolverlo de manera justa y oportuna.
+                    </p>
+                    <ol>
+                        <li class="fw-bold">Aplicación de Términos</li>
+                        <p>Al visitar y/o realizar cualquier acción en KIRIKI, usted confirma que está de acuerdo
+                            con los términos que se describen a continuación y que está sujeto a ellos. Estos términos
+                            se aplican al sitio web, correos electrónicos o cualquier otra comunicación.</p>
+                        <li class="fw-bold">Tratamiento de datos</li>
+                        <p>Los datos de usuario serán recogidos con fines ilustrativos y de manera simbólica,
+                            se recomienda encarecidamente NO compartir datos personales de caracter sensible en ninguno
+                            de los formularios de la aplicación.
+                        </p>
+                        <p>El autor de la web no se hará responsable en ningún momento de los datos insertados por el
+                            usuario</p>
+                        <li class="fw-bold">Cambios en los términos</li>
+                        <p>Si cambios los términos de uso, publicaré los cambios en esta página.</p>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <div class="modal fade" id="successModal" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false"
         aria-labelledby="successModalLabel" aria-hidden="true">
