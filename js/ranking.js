@@ -9,7 +9,6 @@ function getFinishedGames() {
         datatype: "json",
         url: "https://api-kiriki.herokuapp.com/api/finished_games",
         success: function (json) {
-            console.log(json);
             handlerInfo(json);
         },
         error: function (result) {
@@ -23,7 +22,6 @@ function handlerInfo(json) {
 
     let games = json.results;
     let winners = games.map(game => game.winner);
-    console.log(winners);
 
     // -- Dummie data --
     winners.push( 'Manolito', 'Deg', 'Deg', 'Deg', 'Deg', 'Dummie', 'Ejemplo', 'Ejemplo', 'Deg', 'Deg', 'Deg', 'Deg', 'Dummie', 'Ejemplo', 'Ejemplo', 'Ejemplo', 'Ejemplo', 'Usuario', 'Juan');
@@ -50,8 +48,6 @@ function createTopPlayers(winnersCount) {
     topPlayers.sort((a, b) => b.count - a.count);
 
     topPlayers = topPlayers.slice(0,5);
-
-    console.log(topPlayers);
 
     topPlayersHtml = '';
     topPlayers.forEach(winner => {

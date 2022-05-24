@@ -78,10 +78,7 @@ function loadStartedGamesWherePlayerIs(json) {
 };
 
 function loadFinishedGamesWherePlayerIs(json) {
-    console.log("finished games");
     let games = json.results;
-    console.log(games);
-
 
     $('#gamesFinished').html('');
 
@@ -134,7 +131,6 @@ function buttonToJoinGame(game) {
     let username = localStorage.getItem('username');
 
     if (!players.includes(username)) {
-        console.log("can join");
         return `<a class="btn btn-secondary me-5 joinGame">Unirse</a>`;
     }
 
@@ -172,8 +168,6 @@ function buttonToStartIfHost(game) {
 function getPlayersStarted(game) {
     let players = game.players.results;
     let result = [];
-    console.log(game);
-
 
     players.forEach(player => {
         result.push(`<tr">
@@ -202,7 +196,6 @@ function getPlayersStarted(game) {
 function getPlayersUnestarted(game) {
     let players = game.players.results;
     let result = [];
-    console.log(game);
 
 
     players.forEach(player => {
@@ -223,10 +216,8 @@ function getPlayersUnestarted(game) {
 function getPlayersFinished(game) {
     let players = game.players.results;
     let result = [];
-    console.log(game);
 
     players.forEach(player => {
-        console.log(player);
         result.push(`<tr">
         <td>${player.name}</td>
         <td class="fw-bold">${colourPoints(player.points)}</td>
@@ -283,8 +274,6 @@ function loadPassModal(gameId, gameName) {
     $('#passModalTitle').append(gameName);
     $('#gameId').val(gameId);
     $('#passModal').modal('show');
-
-    console.log("Erasing modal pass");
 }
 
 function loadCreateGameModal() {
@@ -332,7 +321,6 @@ function joinGame(gameId, password) {
             game_pass: password
         }),
         success: function (json) {
-            console.log(json);
         },
         error: function (result) {
             loadErrorModal();
@@ -481,7 +469,6 @@ $("#aceptPassword").on("submit", function (event) {
 });
 
 $("#acceptCreateGame").on("click", function (event) {
-    console.log("Creating game...");
     event.preventDefault();
 
     let gameName = $('#createGameName').val();
@@ -496,6 +483,5 @@ $("#acceptCreateGame").on("click", function (event) {
 
 $("body").on('click', '#startGame', function (event) {
     event.preventDefault();
-    console.log('starting game');
     startGame();
 });

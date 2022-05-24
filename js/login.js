@@ -19,7 +19,6 @@ function setValids(errors, elementsId) {
 
 function serverValidator(data) {
 
-    console.log(data);
     if (data.message === "Invalid credentials.") {
         $('#username').css('border', '1px solid red');
         $('#password').css('border', '1px solid red');

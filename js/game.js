@@ -15,18 +15,15 @@ jQuery(function () {
 });
 
 function gameData() {
-    console.log('Obtaining game data...');
     $.ajax({
         type: "GET",
         datatype: "json",
         url: "https://api-kiriki.herokuapp.com/api/game?player_name=" + localStorage.getItem('username') + "&game_id=" + gameId,
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         success: function (result) {
-            console.log('Data loaded');
             loadData(result);
         },
         error: function (result) {
-            console.log('Cant load data');
             console.log(result);
             loadError();
         }
@@ -40,14 +37,13 @@ function getLastBid() {
         url: "https://api-kiriki.herokuapp.com/api/get_bid?player_name=" + localStorage.getItem('username') + "&game_id=" + gameId,
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         success: function (result) {
-            console.log(result)
             displayLastBid(result);
             // Hiding roll in second turn
             hideRoll();
             // 
         },
         error: function (result) {
-            console.log('Cant get last bid');
+            console.log(result);
             handlerError(result.responseJSON);
         }
     });
@@ -60,15 +56,10 @@ function getOwnRoll() {
         url: "https://api-kiriki.herokuapp.com/api/get_own_roll?player_name=" + localStorage.getItem('username') + "&game_id=" + gameId,
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         success: function (result) {
-            console.log('Getting own roll');
-            // Loop of getiing Bid -> Geting own roll
-            // getLastBid();
-            // 
             displayRollResult(result);
             hideDecideButtons();
         },
         error: function (result) {
-            console.log('Cant get own roll');
             handlerError(result.responseJSON);
         }
     });
@@ -87,7 +78,6 @@ $('#rollDices').on('click', function (e) {
             "game_id": gameId
         },
         success: function (result) {
-            console.log(result);
             displayRollResult(result);
         },
         error: function (result) {
@@ -111,7 +101,6 @@ $('#announce').on('click', function (e) {
             "bid_2": $('#bid2').val()
         },
         success: function (result) {
-            console.log(result);
             displayBidResult(result);
             gameData();
             displaySpectate();
@@ -133,7 +122,6 @@ function getLastRoll() {
         url: "https://api-kiriki.herokuapp.com/api/get_last_roll?player_name=" + localStorage.getItem('username') + "&game_id=" + gameId,
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
         success: function (result) {
-            console.log(result);
             loadPointResultModal(result);
         },
         error: function (result) {
@@ -146,10 +134,8 @@ function getLastRoll() {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 function loadData(result) {
-    console.log('Loading data and updating screen .. ');
     changeGameName(result);
     if (result.turn !== localStorage.getItem('username')) {
-        console.log('Not your turn');
         $('#decide').addClass('d-none');
         $('#roll').addClass('d-none');
         $('#bid').addClass('d-none');
@@ -157,7 +143,6 @@ function loadData(result) {
     }
 
     if (result.turn === localStorage.getItem('username')) {
-        console.log('Your turn');
         $('#spectate').addClass('d-none');
         getLastBid();
         hideBid();
@@ -192,7 +177,6 @@ function loadError() {
 function handlerError(json) {
 
     if (json.error === "No bids yet or its the first turn") {
-        console.log('No bids yet or its the first turn');
         hideDecide();
         getOwnRoll();
     }
@@ -225,20 +209,17 @@ function loadErrorModal(json) {
 }
 
 function displayLastBid(json) {
-    console.log('Displaying last bid');
     $('#lastValue').html(`El jugador <span class="fw-bold fst-italic">${json.player}</span> dijo: \"El valor de mis dados es <span class="fw-bold">${json.bid_value}<span>\"`);
     $('#lastImage1').addClass('dice-' + json.bid_1);
     $('#lastImage2').addClass('dice-' + json.bid_2);
 }
 
 function displayRollDices() {
-    console.log('Displaying roll dices');
     $('#roll').removeClass('d-none');
     $('#bid').addClass('d-none');
 }
 
 function displayRollResult(result) {
-    console.log('Displaying roll result');
     $('#roll').addClass('d-none');
     $('#bid').removeClass('d-none');
 
@@ -252,8 +233,6 @@ function displayRollResult(result) {
 };
 
 function displayBidResult(result) {
-    console.log('Displaying bid result');
-    console.log(result.bid_value);
     $('#yourBidResult').removeClass('d-none');
     $('#yourBid1').addClass('dice-' + result.bid_1);
     $('#yourBid2').addClass('dice-' + result.bid_2);
@@ -261,7 +240,6 @@ function displayBidResult(result) {
 };
 
 function displaySpectate() {
-    console.log('Displaying spectate');
     $('#spectate').removeClass('d-none');
     $('#roll').addClass('d-none');
     $('#decide').addClass('d-none');
@@ -273,27 +251,22 @@ function hideDecideButtons() {
 }
 
 function hideDecide() {
-    console.log('Hiding decide');
     $('#decide').addClass('d-none');
 }
 
 function hideRoll() {
-    console.log('Hiding roll');
     $('#roll').addClass('d-none');
 }
 
 function hideBid() {
-    console.log('Hiding bid');
     $('#bid').addClass('d-none');
 }
 
 function hideAnnounce() {
-    console.log('Hiding announce');
     $('#announce').addClass('d-none');
 }
 
 function loadPointResultModal(json) {
-    console.log('Loading point result modal');
 
     if (json.point_loser === localStorage.getItem('username')) {
         $('#whosLoser').addClass('text-danger').html('Has perdido');
@@ -330,8 +303,6 @@ function loadWinnerModal(json) {
 }
 
 function changeGameName(json) {
-    console.log('Changing game name');
-    console.log(json);
     $('#gameName').html(json.name);
 }
 
@@ -350,7 +321,6 @@ $('#rejectButton').on('click', function () {
 
 $('#valueTableButton').on('click', function (e) {
     e.preventDefault();
-    console.log('Hiding table');
     $('#valueTableModal').modal('show');
 
 })
