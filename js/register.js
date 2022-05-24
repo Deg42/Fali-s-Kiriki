@@ -104,9 +104,7 @@ function formHasError() {
 
     setValids(errors, elementsId);
 
-    if (errors.size > 0) {
-        return true;
-    }
+    return errors.size === 0;
 }
 
 function serverValidator(data) {

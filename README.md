@@ -13,8 +13,7 @@
 ### General 
 - [X] Routing URLs ?
 - [X] Add logout
-- [ ] Cancel background image animation cancel
-- [ ] Translate values
+- [X] Translate values
 
 ### Navbar
 - [X] Fix navbar
@@ -34,11 +33,11 @@ See register.js comments
 - [X] Search bar
 - [X] Modal create game
 - [X] Join game
-- [ ] Validations on create game
+- [X] Validations on create game
 - [X] Color on table points
 
 ### Game
 - [X] Game name
 - [X] *'Kiriki'* on roll 
 - [X] Value table
-- [ ] Winning a game, update game
+- [X] Winning a game, update game

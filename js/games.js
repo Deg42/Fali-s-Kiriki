@@ -6,6 +6,7 @@ jQuery(function () {
     } else {
         ajaxGetGames();
         ajaxGetStartedGames();
+        ajaxGetFinishedGames();
     }
 });
 
@@ -73,6 +74,41 @@ function loadStartedGamesWherePlayerIs(json) {
             disableCreateButton();
         }
     });
+
+};
+
+function loadFinishedGamesWherePlayerIs(json) {
+    console.log("finished games");
+    let games = json.results;
+    console.log(games);
+
+
+    $('#gamesFinished').html('');
+
+    games.forEach(game => {
+        $('#gamesFinished').append(`
+            <div class="col">
+                <div class="card border-3">
+                    <div class="card-body ">
+                        <h5 class="card-title">${game.name}</h5>
+                        <small class="d-none gameId">${game.id}</small>
+                    </div>
+                    <table class="card-table table table-light table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col">Nombre</th>
+                                <th scope="col">Puntos</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        ${getPlayersFinished(game)}
+                        </tbody>
+                    </table>
+                </div>
+            </div>`);
+
+    });
+
 
 };
 
@@ -184,9 +220,44 @@ function getPlayersUnestarted(game) {
 
 }
 
+function getPlayersFinished(game) {
+    let players = game.players.results;
+    let result = [];
+    console.log(game);
+
+    players.forEach(player => {
+        console.log(player);
+        result.push(`<tr">
+        <td>${player.name}</td>
+        <td class="fw-bold">${colourPoints(player.points)}</td>
+        </tr>`);
+
+        if (player.name === localStorage.getItem('username')) {
+            result[result.length - 1] = `<tr class="table-info">
+            <td>${player.name}</td>
+            <td class="fw-bold">${colourPoints(player.points)}</td>
+            </tr>`;
+        }
+    });
+
+    return result.join('');
+}
+
 function serverGameValidator(data) {
-    if (data.error === "There is already a game with that name") {
-        alert("Ya existe una partida con ese nombre");
+
+    switch (data.error) {
+        case "There is already a game with that name":
+            return alert("Ya existe una partida con ese nombre");
+        case "Invalid game name":
+            return alert("Nombre de partida no válido, ha de ser de entre 3 y 20 caracteres alfanuméricos");
+        case "There is already a game with that name":
+            return alert("Ya existe una partida con ese nombre");
+        case "Invalid game password":
+            return alert("Contraseña no válida, puede ser opcional");
+        case "Invalid max points":
+            return alert("Los puntos han de ser entre 3 y 9");
+        default:
+            return alert("Error desconocido");
     }
 }
 
@@ -348,6 +419,23 @@ function ajaxGetStartedGames() {
     return false;
 }
 
+function ajaxGetFinishedGames() {
+
+    $.ajax({
+        type: "GET",
+        datatype: "json",
+        url: "https://api-kiriki.herokuapp.com/api/finished_games/?player_name=" + localStorage.getItem('username'),
+        headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
+        success: function (result) {
+            loadFinishedGamesWherePlayerIs(result);
+        },
+        error: function (result) {
+            console.log(result);
+        }
+    });
+    return false;
+
+}
 
 
 
@@ -393,6 +481,7 @@ $("#aceptPassword").on("submit", function (event) {
 });
 
 $("#acceptCreateGame").on("click", function (event) {
+    console.log("Creating game...");
     event.preventDefault();
 
     let gameName = $('#createGameName').val();

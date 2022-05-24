@@ -27,6 +27,7 @@ function gameData() {
         },
         error: function (result) {
             console.log('Cant load data');
+            console.log(result);
             loadError();
         }
     });
@@ -162,6 +163,15 @@ function loadData(result) {
         hideBid();
         getOwnRoll();
     }
+
+    // if winner show winner modal
+    if (result.winner !== null) {
+        $('#spectate').addClass('d-none');
+        $('#decide').addClass('d-none');
+        $('#roll').addClass('d-none');
+        $('#bid').addClass('d-none');
+        loadWinnerModal(result);
+    }
 }
 
 function loadError() {
@@ -283,10 +293,7 @@ function hideAnnounce() {
 }
 
 function loadPointResultModal(json) {
-
-    
-
-    console.log("Loser: " + json.point_loser);
+    console.log('Loading point result modal');
 
     if (json.point_loser === localStorage.getItem('username')) {
         $('#whosLoser').addClass('text-danger').html('Has perdido');
@@ -315,6 +322,11 @@ function loadPointResultModal(json) {
 
     gameData();
     return false;
+}
+
+function loadWinnerModal(json) {
+    $('#winner').html(json.winner);
+    $('#winnerModal').modal('show');
 }
 
 function changeGameName(json) {
@@ -392,10 +404,3 @@ function lessValue(bid, bidImage) {
 
     $(bidImage).addClass("dice-" + val);
 }
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-$('#test').on('click', function (e) {
-    displayBidResult();
-
-});
