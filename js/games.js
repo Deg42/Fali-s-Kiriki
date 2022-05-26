@@ -412,8 +412,11 @@ function ajaxGetFinishedGames() {
     $.ajax({
         type: "GET",
         datatype: "json",
-        url: "https://api-kiriki.herokuapp.com/api/finished_games/?player_name=" + localStorage.getItem('username'),
+        url: "https://api-kiriki.herokuapp.com/api/finished_games/",
         headers: { "Authorization": 'Bearer ' + JSON.parse(localStorage.getItem('token')).value },
+        data: {
+            player_name: localStorage.getItem('username')
+        },
         success: function (result) {
             loadFinishedGamesWherePlayerIs(result);
         },

@@ -104,7 +104,7 @@ function formHasError() {
 
     setValids(errors, elementsId);
 
-    return errors.size === 0;
+    return errors.size > 0;
 }
 
 function serverValidator(data) {
@@ -129,10 +129,19 @@ $("#register").on("click", function (event) {
 
     resetErrors();
 
-    if (formHasError()) {
-        return false;
+    if (!formHasError()) {
+        ajaxRegister();
     }
 
+});
+
+$('#showTerms').on('click', function (e) {
+    e.preventDefault();
+    $('#termsModal').modal('show');
+});
+
+function ajaxRegister(){
+    console.log("making request")
     $.ajax({
         type: "POST",
         datatype: "json",
@@ -161,9 +170,4 @@ $("#register").on("click", function (event) {
         }
     });
     return false;
-});
-
-$('#showTerms').on('click', function (e) {
-    e.preventDefault();
-    $('#termsModal').modal('show');
-});
+}
