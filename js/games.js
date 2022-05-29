@@ -119,7 +119,7 @@ function colourPoints(points) {
 
 function buttonToContinue(game) {
     if (game.turn === localStorage.getItem('username')) {
-        return `<a class="btn btn-primary me-5 shake" id="yourTurn" href="/game.html?id=${game.id}"><img class="turned-30" src="assets/icons/two-dices.svg" width="32px"></img> Tu turno!</a>`;
+        return `<a class="btn btn-primary me-5 shake" id="yourTurn" href="/game.html?id=${game.id}"><img class="turned-30" src="assets/icons/two-dices.svg" width="32px" alt="logo"></img> Tu turno!</a>`;
     }
 
     return `<a class="btn btn-secondary me-5" id="continueGame" href="/game.html?id=${game.id}">Continuar</a>`;
